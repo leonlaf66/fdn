@@ -1,0 +1,28 @@
+<?php
+namespace common\helper;
+
+class DbQuery
+{
+    public static function patch($query, $size, $calback, $params = null, & $db = null)
+    {
+        static $count = null;
+        if (is_null($count)) {
+            $count = $query->count('*', $db);
+        }
+        
+        $groups = $count / $size;
+
+        if ($groups < 1) {
+            $groups = $count > 0 ? 1: 0;
+        }
+
+        for ($group = 1; $group <= $groups; $group ++) {
+            $theQuery = clone $query;
+
+            $theQuery->offset(($group - 1) * $size);
+            $calback($theQuery, $count, $params);
+
+            unset($theQuery);
+        }
+    }
+}
