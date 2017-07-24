@@ -37,6 +37,13 @@ return \yii\helpers\ArrayHelper::merge([
                 'from'=>['admin@wesnail.com'=>'Wesnail']
             ]
         ],
+        'session' => [
+            'useCookies' => true,
+            'cookieParams' => [
+                'domain' => '.usleju.local',
+                'httpOnly' => true,
+            ],
+        ],
         'i18n' => [ 
             'translations' => [
                 '*'=>[

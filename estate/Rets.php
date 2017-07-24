@@ -129,16 +129,7 @@ class Rets extends \common\core\ActiveRecord
 
     public static function all($listNos)
     {
-        $resultItems = [];
-
-        $rawItems = self::find()->where(['in', 'list_no', $listNos])->all();
-        foreach ($rawItems as $rawItem) {
-            $resultItems[$rawItem->list_no] = $rawItem;
-        }
-        
-        return array_map(function ($listNo) use ($resultItems) {
-            return $resultItems[$listNo] ?? null;
-        }, $listNos);
+        return self::find()->where(['in', 'list_no', $listNos])->all();
     }
 
     public function render()
