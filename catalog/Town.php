@@ -16,8 +16,8 @@ class Town extends \common\core\ActiveRecord
         static $zips = [];
         if (empty($data)) {
             // 编码列表
-            $stateCode = \WS::$app->stateCode;
-            $allItems = self::find()->where(['state'=>$stateCode])->all();
+            $stateId = \WS::$app->stateId;
+            $allItems = self::find()->where(['state'=>$stateId])->all();
             foreach ($allItems as $item) {
                 foreach([(\WS::isChinese() ? 'name_cn' : 'name'), 'short_name', 'tax_num'] as $fieldId) {
                     $key = $item[$fieldId];
@@ -78,7 +78,7 @@ class Town extends \common\core\ActiveRecord
 
     public static function all()
     {
-        return self::find()->where(['state'=>\WS::$app->stateCode])->all();
+        return self::find()->where(['state'=>\WS::$app->stateId])->all();
     }
 
     public function fields()
@@ -105,13 +105,13 @@ class Town extends \common\core\ActiveRecord
     public static function get($code, $field='name')
     {
         static $data = [];
-        $stateCode = \WS::$app->stateCode;
-        if(! isset($data[$stateCode])) {
-            foreach(self::find(['state'=>$stateCode])->all() as $m) {
-                $data[$stateCode][$m->short_name] = $m;
+        $stateId = \WS::$app->stateId;
+        if(! isset($data[$stateId])) {
+            foreach(self::find(['state'=>$stateId])->all() as $m) {
+                $data[$stateId][$m->short_name] = $m;
             }
         }
-        return isset($data[$stateCode][$code]) ? $data[$stateCode][$code]->$field : '';
+        return isset($data[$stateId][$code]) ? $data[$stateId][$code]->$field : '';
     }
 
     public static function map()
