@@ -13,12 +13,12 @@ class SiteApp extends \yii\web\Application
     {
         ini_set('session.cookie_domain', domain());
 
-        $this->initLanguage();
         $this->initTranslation();
         $this->houseInit();
         $this->initModules();
-        
-        return parent::bootstrap();
+        $this->initLanguage();
+
+        parent::bootstrap();
     }
 
     protected function houseInit()
@@ -45,16 +45,14 @@ class SiteApp extends \yii\web\Application
 
     protected function initLanguage()
     {
-        $cookies = \Yii::$app->response->cookies;
+        $cookies = \Yii::$app->request->cookies;
 
         if(isset($cookies['language'])) {
-            $this->lanuguage = $cookies['language'];
-        }
-        elseif(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $this->lanuguage = strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], 'zh-CN') !== false ? 'zh-CN' : 'en-US';
-        }
-        else {
-            $this->language = 'en-US';
+            $this->language = $cookies->getValue('language');
+        } else {
+            if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+                $this->language = strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], 'zh-CN') !== false ? 'zh-CN' : 'en-US';
+            }
         }
     }
 
