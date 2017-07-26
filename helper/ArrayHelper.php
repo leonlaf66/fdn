@@ -14,14 +14,14 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
 
     public static function index($array, $key, $value = null)
     {
-        if (!$value) {
+        if (is_null($value)) {
             return parent::index($array, $key);
         }
 
         $result = [];
         foreach ($array as $element) {
-            $key = static::getValue($element, $key);
-            $result[$key] = static::getValue($element, $value);
+            $keyValue = parent::getValue($element, $key);
+            $result[$keyValue] = parent::getValue($element, $value);
         }
 
         return $result;
