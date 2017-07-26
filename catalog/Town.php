@@ -50,7 +50,9 @@ class Town extends \common\core\ActiveRecord
 
     public static function searchKeywords($words)
     {
-        return self::find()->filterWhere([
+        return self::find()->where([
+            'state' => \WS::$app->stateId
+        ])->andWhere([
             'name' => $words,
         ])->orWhere([
             'name_cn' => $words
