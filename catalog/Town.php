@@ -100,6 +100,12 @@ class Town extends \common\core\ActiveRecord
         return isset($data[$stateId][$code]) ? $data[$stateId][$code]->$field : '';
     }
 
+    public static function mapOptions()
+    {
+        $citys = self::find()->where(['state'=>'MA'])->all();
+        return \common\helper\ArrayHelper::index($citys, 'id', 'name');
+    }
+
     protected static function getAllZipCodes()
     {
         static $zips = [];
