@@ -10,10 +10,12 @@ class Town extends \common\core\ActiveRecord
         return 'dict_town';
     }
 
+    // 以name, name_cn,short_name,tax_num,zip_code为键的城市列表数据
     public static function fetchAllData()
     {
         static $data = [];
-        static $zips = [];
+
+        $zips = self::getAllZipCodes();
         if (empty($data)) {
             // 编码列表
             $stateId = \WS::$app->stateId;
@@ -33,11 +35,10 @@ class Town extends \common\core\ActiveRecord
             }
 
             // 针对邮编
-            if (empty($zips)) {
-                $zips = \common\estate\helpers\Config::get('dicts/zip')['zip_code'];
-            }
-            foreach ($zips as $zip => $item) {
-                $cityName = $item['city'];
+            foreach ($zips as $item) {
+                $zip = $item['zip'];
+                $cityName = $item['city_name'];
+
                 if (isset($data[$cityName])) {
                     $data[$zip] = $data[$cityName];
                 }
@@ -45,6 +46,15 @@ class Town extends \common\core\ActiveRecord
         }
 
         return $data;
+    }
+
+    public static function searchKeywords($words)
+    {
+        return self::find()->filterWhere([
+            'name' => $words,
+        ])->orWhere([
+            'name_cn' => $words
+        ])->one();
     }
 
     public static function getMapValue($group, $valueField)
@@ -76,32 +86,6 @@ class Town extends \common\core\ActiveRecord
         return $resultArray;
     }
 
-    public static function all()
-    {
-        return self::find()->where(['state'=>\WS::$app->stateId])->all();
-    }
-
-    public function fields()
-    {
-        $fields = parent::fields();
-        $fields['name'] = 'name';
-        if(\WS::$app->language == 'zh-CN') {
-            $fields['name_en'] = 'name_en';
-            unset($fields['name_cn']);
-        }
-        return $fields;
-    }
-
-    public function afterFind()
-    {
-        if(\WS::$app->language == 'zh-CN') {
-            $this->name_en = $this->name;
-            if($this->name_cn)
-                $this->name = $this->name_cn;
-        }
-        return parent::afterFind();
-    }
-
     public static function get($code, $field='name')
     {
         static $data = [];
@@ -114,8 +98,12 @@ class Town extends \common\core\ActiveRecord
         return isset($data[$stateId][$code]) ? $data[$stateId][$code]->$field : '';
     }
 
-    public static function map()
+    protected static function getAllZipCodes()
     {
-        return [];
+        static $zips = [];
+        if (empty($zips)) {
+            $zips = Zipcode::find()->all();
+        }
+        return $zips;
     }
 }
