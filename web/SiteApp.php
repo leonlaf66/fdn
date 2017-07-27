@@ -58,12 +58,15 @@ class SiteApp extends \yii\web\Application
 
     protected function initTranslation()
     {
-        if(isset($_GET['translation-manager']) && $_GET['translation-manager']=='!2345@AbC') {
+        if(\yii::$app->request->get('translation-manager') === '!2345@AbC') {
             $this->session->set('translation-manager', true);
         }
-        if(\Yii::$app->session->get('translation-manager')) {
-            $this->translationStatus = true;
+
+        if(\yii::$app->request->get('translation-manager') === 'no') {
+            $this->session->set('translation-manager', false);
         }
+
+        $this->translationStatus = \Yii::$app->session->get('translation-manager', false);
     }
 
     protected function initModules()

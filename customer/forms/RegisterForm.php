@@ -59,6 +59,7 @@ class RegisterForm extends Model
         $account->auth_key = WS::$app->getSecurity()->generateRandomString();
         $account->access_token = WS::$app->security->generateRandomString();
         $account->created_at = date('Y-m-d H:i:s', time());
+        $account->updated_at = $account->created_at;
         $account->registration_ip = WS::$app->request->getUserIP();
         if($account->save()) {
             return $account;

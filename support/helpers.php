@@ -22,6 +22,11 @@ function t($type, $text, $params=[]) {
     return \WS::t($type, $text, $params);
 }
 
+function _t($type, $text, $params=[])
+{
+    echo t($type, $text, $params);
+}
+
 function lang($type)
 {
     return \WS::lang($type);

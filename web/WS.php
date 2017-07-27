@@ -3,7 +3,7 @@ class WS extends Yii
 {
     public static function t($category, $message, $params = [], $language = null)
     {
-        if(self::$app->id === 'wesnail-admin') return null;
+        if(self::$app->id === 'usleju-admin') return null;
         $isUiLang = true;
 
         if(substr($category, 0, 1) === '@') {
