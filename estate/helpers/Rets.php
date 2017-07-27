@@ -55,6 +55,10 @@ class Rets
             $value = $d[$field];
             if($field == 'street') {
                 $value = $d['street_num'].' '.ucwords(strtolower($d['street_name']));
+                if (substr($value, strlen($value) - 1, 1) === '.') {
+                    $value = substr($value, 0, strlen($value) - 1);
+                }
+                $value .= ', ';
             }
             if($field == 'town') {
                 $value = self::fetchNameFromDict('cities', $d['town']);

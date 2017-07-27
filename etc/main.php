@@ -23,7 +23,7 @@ return \yii\helpers\ArrayHelper::merge([
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'useFileTransport' => false,
-            'viewPath'=>'@common/mail',
+            'viewPath'=>'@COMMON/mail',
             'transport'=>[
                 'class' => 'Swift_SmtpTransport',    
                 'host' => 'smtp.qq.com',    
@@ -34,7 +34,7 @@ return \yii\helpers\ArrayHelper::merge([
             ],
             'messageConfig'=>[
                 'charset'=>'UTF-8',
-                'from'=>['admin@wesnail.com'=>'Wesnail']
+                'from'=>[]
             ]
         ],
         'session' => [
@@ -75,5 +75,8 @@ return \yii\helpers\ArrayHelper::merge([
             'root' => '/Develops/branches/usleju/medias',
             'baseUrl' => 'http://media.usleju.local'
         ]
+    ],
+    'aliases'=>[
+        '@COMMON'=>dirname(__DIR__)
     ]
 ], include(__DIR__.'/local.php'));
