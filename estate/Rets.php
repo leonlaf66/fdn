@@ -31,7 +31,7 @@ class Rets extends \common\core\ActiveRecord
 
     public static function propertyTypeNames()
     {
-        $t = WS::lang('@rets', true);
+        $t = WS::lang('rets', true);
         return [
             'RN'=>$t('Rental'), 
             'SF'=>$t('Single Family'), 

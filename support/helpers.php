@@ -16,9 +16,9 @@ function _t($type, $text, $params=[])
     echo t($type, $text, $params);
 }
 
-function lang($type)
+function lang($type, $return = false)
 {
-    return \WS::lang($type);
+    return \WS::lang($type, $return);
 }
 
 function tt()

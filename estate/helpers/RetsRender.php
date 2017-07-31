@@ -92,7 +92,7 @@ class RetsRender
             ->where(['type_id'=>$typeId])->scalar();
 
         $arrGroups = [];
-        $t = lang('rets');
+        $t = lang('rets', true);
 
         $xml = simplexml_load_string("<groups>{$xmlContent}</groups>");
         $groups = $xml->xpath('/groups/group');
