@@ -1,8 +1,5 @@
 <?php
 return [
-    ['MLS', 
-        'rets.mls.data.dir'
-    ],
     ['Lease', 
         [
             'lease.home.deluxe.hot.ids',

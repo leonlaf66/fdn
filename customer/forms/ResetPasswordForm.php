@@ -21,8 +21,8 @@ class ResetPasswordForm extends Model
     public function attributeLabels()
     {
         return [
-            'new_password'=>WS::t('account','New Password'),
-            'confirm_new_password'=>WS::t('account','Confirm new Password')
+            'new_password'=>tt('New Password', '新密码'),
+            'confirm_new_password'=>tt('Confirm new Password', '确认新密码')
         ];
     }
 
@@ -30,7 +30,7 @@ class ResetPasswordForm extends Model
     {
         if (!$this->hasErrors()) {
             if($this->new_password !== $this->confirm_new_password) {
-                $this->addError($attribute, WS::t('account','Please make sure your passwords match.'));
+                $this->addError($attribute, WS::t('account',tt('Please make sure your passwords match.', '两次输入密码不一致!')));
             }
         }
     }

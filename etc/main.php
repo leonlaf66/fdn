@@ -1,6 +1,7 @@
 <?php
 return \yii\helpers\ArrayHelper::merge([
     'domain' => '',
+    'configuationData' => include(__DIR__.'/system.php'),
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
@@ -61,7 +62,7 @@ return \yii\helpers\ArrayHelper::merge([
     ],
     'params' => [
         'email' => 'admin@usleju.com',
-        'iconfontUrl' => '//at.alicdn.com/t/font_fygpvhhurh589f6r.css',
+        'iconfontUrl' => '//at.alicdn.com/t/font_mr15o3h7imd6ajor.css',
         'frontend' => [
             'baseUrl' => 'http://www.usleju.local'
         ],

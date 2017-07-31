@@ -18,14 +18,14 @@ class ForgotPasswordForm extends Model
     {
         return [
             [['email'], 'required'],
-            [['email'], 'exist', 'targetClass'=>Account::className(),  'message' => WS::t('account','Account not exist!')]
+            [['email'], 'exist', 'targetClass'=>Account::className(),  'message' => tt('Account not exist!', '不存在的帐户!')]
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'email'=>WS::t('account','Email Address')
+            'email'=>tt('Email Address', '邮件地址')
         ];
     }
 

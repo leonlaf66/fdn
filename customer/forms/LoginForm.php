@@ -20,7 +20,7 @@ class LoginForm extends Model
     {
         return [
             [['email', 'password'], 'required'],
-            [['email'], 'exist', 'targetClass'=>Account::className(),  'message' => WS::t('account', 'The account not exist!')],
+            [['email'], 'exist', 'targetClass'=>Account::className(),  'message' => tt('The account not exist!', '不存在的帐号!')],
             ['rememberMe', 'boolean'],
             ['password', 'validatePassword'],
         ];
@@ -29,8 +29,9 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'email'=>WS::t('account', 'Email Address'),
-            'password'=>WS::t('account', 'Password')
+            'email'=>tt('Email Address', '邮件地址'),
+            'password'=>tt('Password', '密码'),
+            'rememberMe' => tt('Remember me', '保持登陆')
         ];
     }
 
@@ -40,7 +41,7 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, WS::t('account', 'Incorrect email or password.'));
+                $this->addError($attribute, tt('Incorrect email or password.', '不存在的邮件地址或密码!'));
             }
         }
     }

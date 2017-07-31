@@ -33,11 +33,11 @@ class RegisterForm extends Model
     public function attributeLabels()
     {
         return [
-            'username'=>WS::t('account', 'User Name'),
-            'email'=>WS::t('account', 'Email Address'),
-            'password'=>WS::t('account', 'Password'),
-            'confirm_password'=>WS::t('account', 'Confirm Password'),
-            'accept_agreed'=>WS::t('account', '接受米乐居协议条款'),
+            'username'=>tt('User Name', '用户名'),
+            'email'=>tt('Email Address', '邮箱地址'),
+            'password'=>tt('Password', '密码'),
+            'confirm_password'=>tt('Confirm Password', '确认密码'),
+            'accept_agreed'=>tt('Accept USLEJU policy', '接受米乐居协议条款'),
         ];
     }
 
