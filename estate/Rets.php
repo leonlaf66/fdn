@@ -91,7 +91,16 @@ class Rets extends \common\core\ActiveRecord
     public function getListDaysDescription()
     {
         $days = intval((time() - strtotime($this->list_date)) / 86400);
-        return $days === 0 ? '当日上市' : '已上市'.$days.'天';
+        if (\WS::$app->language === 'zh-CN') {
+            return $days === 0 ? '当日上市' : '已上市'.$days.'天';
+        }
+        if ($days === 0) {
+            return 'New listing';
+        }
+        if ($days === 1) {
+            return $days.' day on market';
+        }
+        return $days.' days on market';
     }
 
     public function getTags()
@@ -101,27 +110,27 @@ class Rets extends \common\core\ActiveRecord
         // 学区房
         $areaCodes = \common\catalog\SchoolDistrict::allCodes();
         if (in_array($this->town, $areaCodes)) {
-            $tagNames[] = '学区房';
+            $tagNames[] = t('rets-tags', 'School districts');
         }
 
         // 卧室
         if (intval($this->no_bedrooms) >= 3) {
-            $tagNames[] = '卧室充足';
+            $tagNames[] = t('rets-tags', 'More bedrooms');
         }
 
         // 车位
         if (intval($this->parking_spaces) >= 2) {
-            $tagNames[] = '车位充足';
+            $tagNames[] = t('rets-tags', 'More parkings');
         }
 
         // 车库
         if (intval($this->garage_spaces) > 0) {
-            $tagNames[] = '带车库';
+            $tagNames[] = t('rets-tags', 'Has garage');
         }
         
         // 高级豪宅
         if (in_array($this->prop_type, ['CC', 'SF']) && intval($this->list_price) > 1000000) {
-            $tagNames[] = '高级豪宅';
+            $tagNames[] = t('rets-tags', 'Luxury house');
         }
 
         return $tagNames;

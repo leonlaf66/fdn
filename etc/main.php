@@ -1,8 +1,6 @@
 <?php
 return \yii\helpers\ArrayHelper::merge([
-    'bootstrap' => ['log'],
-    'sourceLanguage'=>'en-US',
-    'language'=>'en-US',
+    'domain' => '',
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',

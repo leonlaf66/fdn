@@ -1,15 +1,4 @@
 <?php
-function domain()
-{
-    $parts = explode('.', $_SERVER["HTTP_HOST"]);
-
-    if (count($parts) > 2) {
-        array_splice($parts, 0, count($parts) - 2);
-    }
-    
-    return '.'.implode('.', $parts);
-}
-
 function helper($name, $score = 'yii')
 {
     if ($score === 'yii') {
@@ -30,6 +19,23 @@ function _t($type, $text, $params=[])
 function lang($type)
 {
     return \WS::lang($type);
+}
+
+function tt()
+{
+    $texts = func_get_args();
+    if (count($texts) === '') return '';
+
+    if (\Yii::$app->language === 'en-US') 
+        return $texts[0];
+    else 
+        return count($texts) > 1 ? $texts[1] : $texts[1];
+}
+
+function _tt()
+{
+    $texts = func_get_args();
+    echo call_user_func_array('tt', $texts);
 }
 
 function additionMonthDate($monthNum = -1)  
@@ -70,4 +76,15 @@ function media_file($name = null)
         return \WS::$app->params['media']['root'];
     }
     return \WS::$app->params['media']['root'].'/'.$name;
+}
+
+function domain()
+{
+    $parts = explode('.', $_SERVER["HTTP_HOST"]);
+
+    if (count($parts) > 2) {
+        array_splice($parts, 0, count($parts) - 2);
+    }
+    
+    return '.'.implode('.', $parts);
 }

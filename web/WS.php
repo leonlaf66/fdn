@@ -22,16 +22,16 @@ class WS extends Yii
         return $isUiLang ? "<t data-type=\"{$category}\" data-source=\"{$message}\">{$result}</t>" : $result;
     }
 
-    public static function lang($type, $r=false)
+    public static function lang($type, $return = true)
     {
-        $t = function($text, $params=[], $return=false) use($type, $r) {
+        return function($text, $params=[]) use($type, $return) {
             $result = WS::t($type, $text, $params);
-            if($r || $return) {
+            if ($return) {
                 return $result;
             }
+
             echo $result; 
         };
-        return $t;
     }
 
     public static function text($texts)

@@ -4,6 +4,7 @@ namespace common\web;
 class SiteApp extends \yii\web\Application
 {
     public $lanuguage = 'en-US';
+    public $domain = '';
     public $houseBaseUrl = '';
     public $translationStatus = false;
     public $configuationData = [];
