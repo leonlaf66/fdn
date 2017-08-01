@@ -99,11 +99,25 @@ class SchoolDistrict extends \common\core\ActiveRecord
             },
             'description' => function ($m, $name) {
                 $texts = $m->getItemData($name, ['', '']);
-                return \WS::langText($texts[0], $texts[1]);
+                $content = \WS::langText($texts[0], $texts[1]);
+                if (strlen($content) === 0) {
+                    $content = $texts[0];
+                }
+                if (strlen($content) === 0) {
+                    $content = $texts[1];
+                }
+                return $content;
             },
             'advantage' => function ($m, $name) {
                 $texts = $m->getItemData($name, ['', '']);
-                return \WS::langText($texts[0], $texts[1]);
+                $content = \WS::langText($texts[0], $texts[1]);
+                if (strlen($content) === 0) {
+                    $content = $texts[0];
+                }
+                if (strlen($content) === 0) {
+                    $content = $texts[1];
+                }
+                return $content;
             },
             'environments' => function ($m, $name) {
                 $environments = $m->getItemData($name, []);
