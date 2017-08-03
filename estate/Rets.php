@@ -220,6 +220,11 @@ class Rets extends \common\core\ActiveRecord
         return include(__DIR__.'/config/dicts/cities.php');
     }
 
+    public function isLiked()
+    {
+        return WS::$app->db->createCommand('select id from rets_favorites where list_no=:id', [':id' => $this->list_no])->queryScalar();
+    }
+
     public function getTypeInstance()
     {
         $instanceClassName = 'common\\estate\\rets\\'.$this->prop_type;

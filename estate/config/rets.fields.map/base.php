@@ -12,13 +12,13 @@ return [
         'title'=>'Property Type',
         'index'=>'prop_type',
         'values'=>[
-            'RN'=>'Rental', 
-            'SF'=>'Single Family', 
-            'MF'=>'Multi Family', 
-            'CC'=>'Condominium',
-            'CI'=>'Commercial', 
-            'BU'=>'Business Opportunity', 
-            'LD'=>'Land'
+            'RN'=>tt('Rental', '租房'), 
+            'SF'=>tt('Single Family', '单家庭'), 
+            'MF'=>tt('Multi Family', '多家庭'), 
+            'CC'=>tt('Condominium', '公寓'),
+            'CI'=>tt('Commercial', '商业用房'), 
+            'BU'=>tt('Business Opportunity', '营业用房'), 
+            'LD'=>tt('Land', '土地')
         ]
     ],
     'location'=>[
