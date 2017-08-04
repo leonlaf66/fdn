@@ -26,9 +26,9 @@ class ModifyPasswordForm extends \yii\base\Model
         $t = \WS::lang('account', true);
 
         return [
-            'old_password'=>$t('Old Password', [], true),
-            'password'=>$t('New Password'),
-            'confirm_password'=>$t('Confirm Password')
+            'old_password'=>tt('Old Password', '旧密码'),
+            'password'=>tt('New Password', '新密码'),
+            'confirm_password'=>tt('Confirm Password', '确认新密码')
         ];
     }
 

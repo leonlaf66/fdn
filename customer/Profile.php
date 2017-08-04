@@ -29,18 +29,18 @@ class Profile extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'name'=>\WS::t('profile', 'Name'),
-            'phone_number'=>\WS::t('profile', 'Phone'),
-            'job_name'=>\WS::t('profile', 'Job'),
-            'where_from'=>\WS::t('profile', 'Where are you from?')
+            'name'=>tt('Name', '姓名'),
+            'phone_number'=>tt('Phone', '电话号码'),
+            'job_name'=>tt('Job', '职业'),
+            'where_from'=>tt('Where are you from?', '您来自哪里？')
         ];
     }
 
     public static function whereFromOptions()
     {
         return [
-            'cn'=>\WS::t('@profile', 'Chinese'),
-            'us'=>\WS::t('@profile', 'United States')
+            'cn'=>tt('Chinese', '中国'),
+            'us'=>tt('United States', '美国')
         ];
     }
 }

@@ -176,7 +176,7 @@ class Rets extends \common\core\ActiveRecord
     public function getPhoto($n = 0, $w=300, $h = 300)
     {
         if ($n > $this->photo_count - 1) {
-            return \WS::$app->params['rets']['defPhotoUrl'];
+            return \WS::$app->params['media']['baseUrl'].'/rets/placeholder_'.strtolower($this->prop_type).'.jpg';
         }
         return \common\estate\helpers\Rets::getPhotoUrl($this->list_no, $n, $w, $h);
     }

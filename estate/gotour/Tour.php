@@ -30,9 +30,9 @@ class Tour extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'date_start'=>self::t('Date Start'),
-            'date_end'=>self::t('Date End'),
-            'status'=>self::t('Status')
+            'date_start'=>tt('Date Start', '开始时间'),
+            'date_end'=>tt('Date End', '结束时间'),
+            'status'=>tt('Status', '状态')
         ];
     }
 

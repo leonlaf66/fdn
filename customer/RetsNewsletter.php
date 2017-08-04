@@ -25,14 +25,14 @@ class RetsNewsletter extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'prop_type'=>self::t('Type'),
-            'name'=>self::t('Name'),
-            'city'=>self::t('City'),
-            'price_range'=>self::t('Price Range'),
-            'bed_rooms'=>self::t('Beds'),
-            'bath_rooms'=>self::t('Baths'),
-            'notification_cycle'=>self::t('Cycle'),
-            'created_at'=>self::t('Created At')
+            'prop_type'=>tt('Type', '类型'),
+            'name'=>tt('Name', '名称'),
+            'city'=>tt('City', '城市'),
+            'price_range'=>tt('Price Range', '价格范围'),
+            'bed_rooms'=>tt('Beds', '卧室数'),
+            'bath_rooms'=>tt('Baths', '浴室数'),
+            'notification_cycle'=>tt('Cycle', '周期'),
+            'created_at'=>tt('Created At', '创建时间')
         ];
     }
 
