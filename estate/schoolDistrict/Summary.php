@@ -150,7 +150,7 @@ class Summary extends \common\core\ActiveRecord
             $sql = "
                 select town, 
                     (case when is_rental then 'rent' else 'sell' end) as type, count(id) as count,
-                     sum(price) as total_price  
+                     sum(list_price) as total_price  
                   from rets_mls_index 
                   where is_show = true
                   {$addiWhere}
