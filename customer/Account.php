@@ -142,6 +142,23 @@ class Account extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ->send();
     }
 
+    public function sendTempPasswordEmail()
+    {
+        $password = substr(md5(time()), 0, 8);
+
+        $user = self::find()
+            ->where(['email' => $this->email])
+            ->one();
+
+        $user->password = md5($password);
+        $user->save();
+
+        return WS::$app->mailer->compose('account/temp-pwd', ['user' => $this, 'password' => $password])
+            ->setTo($this->email)
+            ->setSubject('Forgot Password')
+            ->send();
+    }
+
     public function resetPassword($password)
     {
         $this->password = md5($password);
