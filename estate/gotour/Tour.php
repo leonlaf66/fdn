@@ -22,8 +22,8 @@ class Tour extends \yii\db\ActiveRecord
     public static function statusOptions()
     {
         return [
-            self::STATUS_UNCONFIRMED=>\WS::t('@tour', 'Unconfirmed'),
-            self::STATUS_CONFIRMED=>\WS::t('@tour', 'Confirmed')
+            self::STATUS_UNCONFIRMED=>tt('Unconfirmed', '未确认'),
+            self::STATUS_CONFIRMED=>tt('Confirmed', '已确认')
         ];
     }
 

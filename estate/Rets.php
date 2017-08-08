@@ -110,27 +110,27 @@ class Rets extends \common\core\ActiveRecord
         // 学区房
         $areaCodes = \common\catalog\SchoolDistrict::allCodes();
         if (in_array($this->town, $areaCodes)) {
-            $tagNames[] = t('rets-tags', 'School districts');
+            $tagNames[] = tt('School district', '学区房');
         }
 
         // 卧室
         if (intval($this->no_bedrooms) >= 3) {
-            $tagNames[] = t('rets-tags', 'More bedrooms');
+            $tagNames[] = tt('More bedrooms', '卧室充足');
         }
 
         // 车位
         if (intval($this->parking_spaces) >= 2) {
-            $tagNames[] = t('rets-tags', 'More parkings');
+            $tagNames[] = tt('More parkings', '车位充足');
         }
 
         // 车库
         if (intval($this->garage_spaces) > 0) {
-            $tagNames[] = t('rets-tags', 'Has garage');
+            $tagNames[] = tt('Has garage', '带车库');
         }
         
         // 高级豪宅
         if (in_array($this->prop_type, ['CC', 'SF']) && intval($this->list_price) > 1000000) {
-            $tagNames[] = t('rets-tags', 'Luxury house');
+            $tagNames[] = tt('Luxury house', '高级豪宅');
         }
 
         return $tagNames;
