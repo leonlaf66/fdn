@@ -84,8 +84,8 @@ return [
         'title'=>'',
         'value'=>function($value, $rets) {
             $bd = intval($rets->no_bedrooms);
-            $ba = intval($rets->no_rooms) + intval($rets->no_half_baths) / 2.0;
-            return "{$bd}bd {$ba}ba";
+            $ba = intval($rets->no_full_baths) + intval($rets->no_half_baths) / 2.0;
+            return tt("{$bd}bd {$ba}ba", "卧室 {$bd} 卫生间 {$ba}");
         }
     ],
     'lot_size'=>[
