@@ -8,11 +8,11 @@ class Geo
 
     public static function getDistance($longitude1, $latitude1, $longitude2, $latitude2, $unit=1, $decimal=0)
     {
-        $radLat1 = $latitude1 * self::PI / 180.0;
-        $radLat2 = $latitude2 * self::PI / 180.0;
+        $radLat1 = bcmul($latitude1, self::PI / 180.0, 20);
+        $radLat2 = bcmul($latitude2, self::PI / 180.0, 20);
 
-        $radLng1 = $longitude1 * self::PI / 180.0;
-        $radLng2 = $longitude2 * self::PI /180.0;
+        $radLng1 = bcmul($longitude1, self::PI / 180.0, 20);
+        $radLng2 = bcmul($longitude2, self::PI /180.0, 20);
 
         $a = $radLat1 - $radLat2;
         $b = $radLng1 - $radLng2;
