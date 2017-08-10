@@ -1,6 +1,8 @@
 <?php
 namespace common\news;
 
+use yii\data\ActiveDataProvider;
+
 class News extends \common\core\ActiveRecord
 {
     public $arrayFields = ['towns'];
@@ -30,5 +32,17 @@ class News extends \common\core\ActiveRecord
         }
 
         return $imageUrl;
+    }
+
+    public static function search()
+    {
+        $model = new self();
+        
+        return new ActiveDataProvider([
+            'query' => $model->find(),
+            'pagination' => [
+                'pagesize' => 15
+             ]
+        ]);
     }
 }

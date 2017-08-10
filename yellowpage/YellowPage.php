@@ -1,6 +1,8 @@
 <?php
 namespace common\yellowpage;
 
+use yii\data\ActiveDataProvider;
+
 class YellowPage extends \yii\db\ActiveRecord
 {
     public $photo;
@@ -34,5 +36,22 @@ class YellowPage extends \yii\db\ActiveRecord
     public function getPhotoImageInstance()
     {
         return \common\helper\Media::init('yellowpage')->getImageInstance($this->photo_hash);
-    } 
+    }
+
+    public function getCity()
+    {
+        return $this->hasOne(YellowPageCities::className(), ['yellowpage_id' => 'id']);
+    }
+
+    public static function search()
+    {
+        $model = new self();
+        
+        return new ActiveDataProvider([
+            'query' => $model->find(),
+            'pagination' => [
+                'pagesize' => 15
+             ]
+        ]);
+    }
 }

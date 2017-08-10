@@ -140,6 +140,14 @@ class SchoolDistrict extends \common\core\ActiveRecord
                     $feature->description = \WS::langText($feature->description, $feature->description_cn);
                     return $feature;
                 }, $features);
+            },
+            'k12' => function ($m, $name) {
+                $schools = $m->schools;
+                return [
+                    'high' => count($schools->high),
+                    'middle' => count($schools->middle),
+                    'grade' => count($schools->grade)
+                ];
             }
         ];
     }

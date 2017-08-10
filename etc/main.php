@@ -62,7 +62,7 @@ return \yii\helpers\ArrayHelper::merge([
     ],
     'params' => [
         'email' => 'admin@usleju.com',
-        'iconfontUrl' => '//at.alicdn.com/t/font_jzco4hvhbe78ehfr.css',
+        'iconfontUrl' => '//at.alicdn.com/t/font_318117_6d8x5q0sqy0t3xr.css',
         'frontend' => [
             'baseUrl' => 'http://www.usleju.local'
         ],

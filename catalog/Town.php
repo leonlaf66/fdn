@@ -103,7 +103,7 @@ class Town extends \common\core\ActiveRecord
     public static function mapOptions()
     {
         $citys = self::find()->where(['state'=>'MA'])->all();
-        return \common\helper\ArrayHelper::index($citys, 'id', 'name');
+        return \common\helper\ArrayHelper::index($citys, 'id', tt('name', 'name_cn'));
     }
 
     protected static function getAllZipCodes()
