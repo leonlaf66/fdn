@@ -78,4 +78,16 @@ class RetsFavorite extends \yii\db\ActiveRecord
     {
         return self::find()->where(['list_no'=>$listNo, 'user_id'=>$userId])->exists();
     }
+
+    public static function search()
+    {
+        $m = new self();
+        
+        return new \yii\data\ActiveDataProvider([
+            'query' => $m->find(),
+            'pagination' => [
+                'pagesize' => 15
+             ]
+        ]);
+    }
 }

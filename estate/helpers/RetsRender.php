@@ -41,6 +41,7 @@ class RetsRender
             'id'=>$field,
             'title'=>'',
             'value'=>$value,
+            'formatedValue' => null,
             'rawValue'=>$rawValue,
         ];
         
@@ -78,6 +79,15 @@ class RetsRender
         //后缀
         if ($suffix = Ah::getValue($options, 'suffix')) {
             $result['suffix'] = $suffix;
+        }
+
+        //格式化过后的数据
+        $result['formatedValue'] = $result['value'];
+        if (isset($result['prefix'])) {
+            $result['formatedValue'] = $result['prefix'].$result['formatedValue'];
+        }
+        if (isset($result['suffix'])) {
+            $result['formatedValue'] = $result['formatedValue'].$result['suffix'];
         }
 
         return $result;

@@ -43,6 +43,16 @@ class YellowPage extends \yii\db\ActiveRecord
         return $this->hasOne(YellowPageCities::className(), ['yellowpage_id' => 'id']);
     }
 
+    public static function hit($id)
+    {
+        return \WS::$app->db->createCommand()
+            ->update('catalog_yellow_page', [
+                'hits' =>new \yii\db\Expression('hits+1')
+            ], 'id=:id', [
+                ':id' => $id
+            ])->execute();
+    }
+
     public static function search()
     {
         $model = new self();

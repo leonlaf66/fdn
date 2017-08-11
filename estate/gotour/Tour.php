@@ -14,6 +14,13 @@ class Tour extends \yii\db\ActiveRecord
         return 'rets_tour';
     }
 
+    public function rules()
+    {
+        return [
+            [['date_start', 'date_end'], 'required']
+        ];
+    }
+
     public static function t($message, $params=[])
     {
         return \WS::t('tour', $message, $params);
@@ -87,6 +94,11 @@ class Tour extends \yii\db\ActiveRecord
     {
         $this->status = self::STATUS_CONFIRMED;
         return $this->save();
+    }
+
+    public static function findByUser($userId)
+    {
+        return self::find()->where(['user_id'=>$userId])->orderBy('date_start desc');
     }
 
     public static function findOneByUser($id, $userId)

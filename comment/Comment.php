@@ -11,9 +11,9 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['page_id', 'rating', 'comments'], 'required'],
-            [['page_id', 'rating'], 'integer'],
-            [['comments'], 'string', 'max'=>8000]
+            [['rating', 'comments'], 'required'],
+            [['rating'], 'integer'],
+            [['comments'], 'string', 'min'=>10, 'max'=>8000]
         ];
     }
 

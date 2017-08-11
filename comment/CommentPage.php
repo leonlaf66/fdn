@@ -10,6 +10,16 @@ class CommentPage extends \yii\db\ActiveRecord
 
     public function getComment()
     {
-        return $this->hasMany(Comment::className(), ['page_id' => 'id'])->orderBy('id asc');
+        return $this->getComments();
+    }
+
+    public function getComments()
+    {
+        return $this->hasMany(Comment::className(), ['page_id' => 'id'])->orderBy('id DESC');
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(\common\customer\Account::className(), ['user_id' => 'id']);
     }
 }
