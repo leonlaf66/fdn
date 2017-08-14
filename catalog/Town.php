@@ -48,14 +48,12 @@ class Town extends \common\core\ActiveRecord
         return $data;
     }
 
-    public static function searchKeywords($words)
+    public static function searchKeywords($words, $stateId = null)
     {
-        return self::find()->where([
-            'state' => \WS::$app->stateId
-        ])->andWhere([
-            'name' => $words,
-        ])->orWhere([
-            'name_cn' => $words
+        return static::find()->where([
+            'state' => $stateId ?? \WS::$app->stateId
+        ])->andWhere('name=:nm or name_cn=:nm', [
+            ':nm' => $words
         ])->one();
     }
 
