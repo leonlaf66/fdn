@@ -10,7 +10,7 @@ use common\customer\Account;
  */
 class LoginForm extends Model
 {
-    public $email;
+    public $account_id;
     public $password;
     public $rememberMe = true;
 
@@ -19,8 +19,9 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            [['email', 'password'], 'required'],
-            [['email'], 'exist', 'targetClass'=>Account::className(),  'message' => tt('The account not exist!', '不存在的帐号!')],
+            [['account_id', 'password'], 'required'],
+            //[['email'], 'exist', 'targetClass'=>Account::className(),  'message' => tt('The account not exist!', '不存在的帐号!')],
+            [['account_id'], 'validateAccountId'],
             ['rememberMe', 'boolean'],
             ['password', 'validatePassword'],
         ];
@@ -29,10 +30,19 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'email'=>tt('Email Address', '邮件地址'),
+            'account_id'=>tt('Username/Email Address/Phone Number', '用户名/邮件地址/手机号码'),
             'password'=>tt('Password', '密码'),
             'rememberMe' => tt('Remember me', '保持登陆')
         ];
+    }
+
+    public function validateAccountId($attribute, $params)
+    {
+        if(! Account::find()->where('username=:id or email=:id or phone_number=:id', [':id' => $this->$attribute])->exists()) {
+            $this->addError($attribute, tt('The account not exist!', '不存在的帐号!'));
+            return false;
+        }
+        return true;
     }
 
     public function validatePassword($attribute, $params)
@@ -41,7 +51,7 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, tt('Incorrect email or password.', '不存在的邮件地址或密码!'));
+                $this->addError($attribute, tt('Incorrect account or password.', '不存在的帐号或密码!'));
             }
         }
     }
@@ -60,14 +70,14 @@ class LoginForm extends Model
     }
 
     /**
-     * Finds user by [[email]]
+     * Finds user by [[account_id]]
      *
      * @return User|null
      */
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = Account::findByEmail($this->email);
+            $this->_user = Account::findByAid($this->account_id);
         }
 
         return $this->_user;

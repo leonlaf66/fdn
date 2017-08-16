@@ -35,7 +35,7 @@ class Account extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             'id' => 'ID',
-            'email' => 'Email Address',
+            'email' => 'Account ID',
             'password' => 'Password',
             'auth_key' => 'AuthKey',
             'access_token' => 'AccessToken',
@@ -59,21 +59,21 @@ class Account extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     }
 
     /**
-     * Finds user by email
+     * Finds user by aid/ 兼容用户名 + 手机号
      *
-     * @param  string      $email
+     * @param  string      $id
      * @return static|null
      */
-    public static function findByEmail($email)
+    public static function findByAid($aid)
     {
           $user = self::find()
-            ->where(['email' => $email])
+            ->where('username=:id or email=:id or phone_number=:id', [':id' => $aid])
             ->asArray()
             ->one();
 
-            if($user){
-            return new static($user);
-        }
+            if($user) {
+                return new static($user);
+            }
 
         return null;
     }

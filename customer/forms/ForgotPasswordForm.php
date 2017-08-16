@@ -18,14 +18,24 @@ class ForgotPasswordForm extends Model
     {
         return [
             [['email'], 'required'],
-            [['email'], 'exist', 'targetClass'=>Account::className(),  'message' => tt('Account not exist!', '不存在的帐户!')]
+            [['email'], 'validateAccountId'],
+            //[['email'], 'exist', 'targetClass'=>Account::className(),  'message' => tt('Account not exist!', '不存在的帐户!')]
         ];
+    }
+
+    public function validateAccountId($attribute, $params)
+    {
+        if(! Account::find()->where('username=:id or email=:id or phone_number=:id', [':id' => $this->$attribute])->exists()) {
+            $this->addError($attribute, tt('The account not exist!', '不存在的帐号!'));
+            return false;
+        }
+        return true;
     }
 
     public function attributeLabels()
     {
         return [
-            'email'=>tt('Email Address', '邮件地址')
+            'email'=>tt('Username/Email Address/Phone Number', '用户名/邮件地址/手机号码')
         ];
     }
 
