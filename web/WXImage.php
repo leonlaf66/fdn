@@ -11,8 +11,10 @@ class WXImage extends \yii\base\Component
     {
         if (preg_match_all('/<img.*?src="(.*?)".*?>/is', $content, $matchs)) {
             foreach ($matchs[1] as $wxImageUrl) {
-                $newWxImageUrl = $this->getLocalImage($wxImageUrl, $replace);
-                $content = str_replace($wxImageUrl, $newWxImageUrl, $content);
+                if (strpos($wxImageUrl, 'mmbiz.qpic.cn') !== false) {
+                    $newWxImageUrl = $this->getLocalImage($wxImageUrl, $replace);
+                    $content = str_replace($wxImageUrl, $newWxImageUrl, $content);
+                }
             }
         }
 
