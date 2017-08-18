@@ -34,6 +34,15 @@ class News extends \common\core\ActiveRecord
         return $imageUrl;
     }
 
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($this->status == 1) {
+            \WS::$app->shellMessage->send('news-process/index '.$this->id);
+            // $this->processImages();
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    }
+
     public static function search()
     {
         $model = new self();

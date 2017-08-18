@@ -43,6 +43,15 @@ return \yii\helpers\ArrayHelper::merge([
                 'httpOnly' => true,
             ],
         ],
+        'wxImage' => [
+            'class' => 'common\web\WXImage',
+            'baseDir' => '',
+            'baseUrl' => ''
+        ],
+        'shellMessage' => [
+            'class' => 'common\web\ShellMessage',
+            'commandRootDir' => ''
+        ],
         'i18n' => [ 
             'translations' => [
                 '*'=>[
@@ -62,7 +71,7 @@ return \yii\helpers\ArrayHelper::merge([
     ],
     'params' => [
         'email' => 'admin@usleju.com',
-        'iconfontUrl' => '//at.alicdn.com/t/font_318117_6d8x5q0sqy0t3xr.css',
+        'iconfontUrl' => '//at.alicdn.com/t/font_318117_0kw9eie5sp6nu3di.css',
         'frontend' => [
             'baseUrl' => 'http://www.usleju.local'
         ],

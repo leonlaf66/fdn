@@ -30,7 +30,7 @@ class Profile extends \yii\db\ActiveRecord
     {
         return [
             'name'=>tt('Name', '姓名'),
-            'phone_number'=>tt('Phone', '电话号码'),
+            'phone_number'=>tt('Phone Number', '联系电话'),
             'job_name'=>tt('Job', '职业'),
             'where_from'=>tt('Where are you from?', '您来自哪里？')
         ];
