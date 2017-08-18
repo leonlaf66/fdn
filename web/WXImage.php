@@ -42,6 +42,7 @@ class WXImage extends \yii\base\Component
         }
 
         /*写图片到本地缓存*/
+        /*
         $ch = curl_init();
         $timeout = 30;
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -49,12 +50,12 @@ class WXImage extends \yii\base\Component
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
         $blob = curl_exec($ch);
-        curl_close($ch);
-        /*
+        curl_close($ch);*/
+        
         ob_start();
         readfile($url);
         $blob = ob_get_contents();
-        ob_end_clean();*/
+        ob_end_clean();
 
         $fp = fopen($this->baseDir.'/'.$localFileName, 'a');  
         $imgLen = strlen($blob);
