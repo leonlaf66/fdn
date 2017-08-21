@@ -12,15 +12,6 @@ class News extends \common\core\ActiveRecord
         return 'news';
     }
 
-    public static function types()
-    {
-        return [
-            '1'=>'Immigration',
-            '2'=>'House Market',
-            '3'=>'Boston News'
-        ];
-    }
-
     public function getImageUrl($defaultImageFile = '')
     {
         $content = $this->content;
