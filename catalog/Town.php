@@ -11,14 +11,13 @@ class Town extends \common\core\ActiveRecord
     }
 
     // 以name, name_cn,short_name,tax_num,zip_code为键的城市列表数据
-    public static function fetchAllData()
+    public static function fetchAllData($stateId = 'MA')
     {
         static $data = [];
 
         $zips = self::getAllZipCodes();
         if (empty($data)) {
             // 编码列表
-            $stateId = \WS::$app->stateId;
             $allItems = self::find()->where(['state'=>$stateId])->all();
             foreach ($allItems as $item) {
                 foreach([(\WS::isChinese() ? 'name_cn' : 'name'), 'short_name', 'tax_num'] as $fieldId) {
