@@ -5,6 +5,11 @@ class Config
 {
     public static function get($group)
     {
-        return include(__DIR__.'/../config/'.$group.'.php');
+        $file = __DIR__.'/../config/'.$group.'.php';
+        if (file_exists($file)) {
+            return include(__DIR__.'/../config/'.$group.'.php');
+        }
+
+        return null;
     }
 }

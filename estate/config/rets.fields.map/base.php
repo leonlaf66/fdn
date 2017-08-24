@@ -28,8 +28,11 @@ return [
         }
     ],
     'area'=>[
-        'title'=>'Area',
+        'title'=>tt('Area', '区域'),
         'value'=>function($value) {
+            if (! $value) {
+                return tt('Unknown', '未知供');
+            }
             return \common\estate\helpers\Rets::fetchNameFromDict('area', $value);
         }
     ],
