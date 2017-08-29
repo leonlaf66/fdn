@@ -93,3 +93,8 @@ function generate_code($length = 6)
 {
     return rand(pow(10,($length-1)), pow(10,$length)-1);
 }
+
+function create_url($route)
+{
+    return \Yii::$app->urlManager->createUrl($route);
+}
