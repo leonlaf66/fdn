@@ -3,7 +3,8 @@ namespace common\web;
 
 class SiteApp extends \yii\web\Application
 {
-    public $lanuguage = 'en-US';
+    public $language = 'en-US';
+    public $autoLanguage = false;
     public $domain = '';
     public $houseBaseUrl = '';
     public $translationStatus = false;
@@ -13,7 +14,6 @@ class SiteApp extends \yii\web\Application
     public function bootstrap()
     {
         ini_set('session.cookie_domain', domain());
-
         $this->initTranslation();
         $this->houseInit();
         $this->initModules();
@@ -46,13 +46,22 @@ class SiteApp extends \yii\web\Application
 
     protected function initLanguage()
     {
-        $cookies = \Yii::$app->request->cookies;
+        $reqCookies = \Yii::$app->request->cookies;
+        $resCookies = \Yii::$app->response->cookies;
 
-        if(isset($cookies['language'])) {
-            $this->language = $cookies->getValue('language');
-        } else {
-            if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-                $this->language = strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], 'zh-CN') !== false ? 'zh-CN' : 'en-US';
+        if (! $this->autoLanguage) {
+            if (isset($reqCookies['language'])) {
+                $this->language = $reqCookies['language']->value;
+            } else {
+                if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+                    $this->language = strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], 'zh-CN') !== false ? 'zh-CN' : 'en-US';
+                }
+                $resCookies->add(new \yii\web\Cookie([
+                    'name' => 'language',
+                    'value' => $this->language,
+                    'domain' => domain(),
+                    'expire'=>0,
+                ]));
             }
         }
     }
