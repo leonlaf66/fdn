@@ -47,7 +47,7 @@ class Tour extends \yii\db\ActiveRecord
     {
         $rets = $this->getRets();
         if($rets) {
-            return $rets->getLocation();
+            return $rets->title();
         }
         return '';
     }

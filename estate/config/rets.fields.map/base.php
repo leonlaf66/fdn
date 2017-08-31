@@ -8,6 +8,13 @@ return [
             return \WS::isChinese() ? $cityName.$rets->propTypeName() : $rets->propTypeName().' in '.$cityName;
         }
     ],
+    'title' => [
+        'title'=>'Title',
+        'index'=>false,
+        'value'=>function ($val, $rets) {
+            return $rets->title();
+        }
+    ],
     'prop_type_name'=>[
         'title'=>'Property Type',
         'index'=>'prop_type',
@@ -83,12 +90,20 @@ return [
         'type'=>'int',
         'default'=>0
     ],
-    'rooms_descriptions'=>[
+    'rooms_short_descriptions'=>[
         'title'=>'',
         'value'=>function($value, $rets) {
             $bd = intval($rets->no_bedrooms);
             $ba = intval($rets->no_full_baths) + intval($rets->no_half_baths) / 2.0;
             return tt("{$bd}bd {$ba}ba", "卧室 {$bd} 卫生间 {$ba}");
+        }
+    ],
+    'rooms_descriptions'=>[
+        'title'=>'',
+        'value'=>function($value, $rets) {
+            $bd = intval($rets->no_bedrooms);
+            $ba = intval($rets->no_full_baths) + intval($rets->no_half_baths) / 2.0;
+            return tt("{$bd} bed {$ba} bath", "卧室 {$bd} 卫生间 {$ba}");
         }
     ],
     'lot_size'=>[
