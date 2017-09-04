@@ -12,7 +12,10 @@ class Rets
         foreach($search->getModels() as $rets) {
             $ids[] = $rets->id;
         }
-        return \common\estate\Rets::all($ids);
+        $list = ArrayHelper::index(\common\estate\Rets::all($ids), 'list_no');
+        return array_map(function ($id) use ($list){
+            return $list[$id] ?? null;
+        }, $ids);
     }
 
     public static function getPhotoUrl($listNo, $n = 0, $w = 100, $h = 100)

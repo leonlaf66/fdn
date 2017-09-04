@@ -1,5 +1,5 @@
 <?php
-return \yii\helpers\ArrayHelper::merge([
+$config = \yii\helpers\ArrayHelper::merge([
     'domain' => '',
     'configuationData' => include(__DIR__.'/system.php'),
     'components' => [
@@ -88,3 +88,17 @@ return \yii\helpers\ArrayHelper::merge([
         '@COMMON'=>dirname(__DIR__)
     ]
 ], include(__DIR__.'/local.php'));
+
+if (YII_ENV_DEV) {
+    // configuration adjustments for 'dev' environment
+    //$config['bootstrap'][] = 'debug';
+    //$config['modules']['debug'] = [
+     //'class' => 'yii\debug\Module',
+    //];
+    //$config['bootstrap'][] = 'gii';
+    //$config['modules']['gii'] = [
+     //'class' => 'yii\gii\Module',
+    //];
+}
+
+return $config;
