@@ -24,6 +24,9 @@ function lang($type, $return = false)
 function tt()
 {
     $texts = func_get_args();
+    if (isset($texts[0]) && is_array($texts[0])) {
+        $texts = $texts[0];
+    }
     if (count($texts) === '') return '';
 
     if (\Yii::$app->language === 'en-US') 
