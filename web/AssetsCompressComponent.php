@@ -91,6 +91,11 @@ class AssetsCompressComponent extends \iisns\assets\AssetsCompressComponent
         if (file_exists($rootUrl)) {
             $resultFiles = [];
             foreach ($files as $fileCode => $fileTag) {
+                if (strpos($fileTag, 'no-merge') !== false) {
+                    $resultFiles[$fileCode] = $fileTag;
+                    continue;
+                }
+
                 if (!Url::isRelative($fileCode) && !$this->cssFileRemouteCompile) {
                     $resultFiles[$fileCode] = $fileTag;
                 }
@@ -103,6 +108,11 @@ class AssetsCompressComponent extends \iisns\assets\AssetsCompressComponent
         $resultContent  = [];
         $resultFiles    = [];
         foreach ($files as $fileCode => $fileTag) {
+            if (strpos($fileTag, 'no-merge') !== false) {
+                $resultFiles[$fileCode] = $fileTag;
+                continue;
+            }
+
             if (Url::isRelative($fileCode)) {
                 $contentTmp  = trim($this->fileGetContents( $fileCode ));
                 $fileCodeTmp = explode("/", $fileCode);
@@ -165,11 +175,6 @@ class AssetsCompressComponent extends \iisns\assets\AssetsCompressComponent
         $file = Yii::getAlias('@webroot').$file;
         if (file_exists($file)) {
             return file_get_contents($file);
-            /*
-            $fp = fopen($file, 'r');   
-            $content = fread($fp, filesize($file));
-            fclose($fp);   
-            return $content;*/
         }
         return '';
     }
