@@ -23,7 +23,8 @@ class AssetsCompressComponent extends \iisns\assets\AssetsCompressComponent
      */
     protected function _processingJsFiles($files = [])
     {
-        $fileName   =  md5( implode(array_keys($files)) . $this->getSettingsHash()) . '.js';
+        //$fileName   =  md5( implode(array_keys($files)) . $this->getSettingsHash()) . '.js';
+        $fileName   = $this->buildFileName($files, '.js'); 
         $publicUrl  = Yii::getAlias('@web/assets/js-compress/' . $fileName);
         $rootDir    = Yii::getAlias('@webroot/assets/js-compress');
         $rootUrl    = $rootDir . '/' . $fileName;
@@ -83,7 +84,8 @@ class AssetsCompressComponent extends \iisns\assets\AssetsCompressComponent
      */
     protected function _processingCssFiles($files = [])
     {
-        $fileName   =  md5( implode(array_keys($files)) . $this->getSettingsHash() ) . '.css';
+        //$fileName   =  md5( implode(array_keys($files)) . $this->getSettingsHash() ) . '.css';
+        $fileName   = $this->buildFileName($files, '.css'); 
         $publicUrl  = Yii::getAlias('@web/assets/css-compress/' . $fileName);
         $rootDir    = Yii::getAlias('@webroot/assets/css-compress');
         $rootUrl    = $rootDir . '/' . $fileName;
@@ -156,6 +158,31 @@ class AssetsCompressComponent extends \iisns\assets\AssetsCompressComponent
         } else {
             return $files;
         }
+    }
+
+    public function buildFileName($files, $ext = '.css')
+    {
+        $webroot = Yii::getAlias('@webroot');
+
+        $filetimes = [];
+        foreach ($files as $file => $fileTag) {
+            if (! Url::isRelative($file)) {
+                continue;
+            }
+            if (strpos($fileTag, 'no-merge') !== false) {
+                continue;
+            }
+
+            if (substr($file, 0, 1) !== '/') {
+                $file .= '/';
+            }
+
+            if (file_exists($webroot.$file)) {
+                $filetimes[] = filemtime($webroot.$file);
+            }
+        }
+
+        return md5( implode($filetimes) . $this->getSettingsHash() ) . $ext;
     }
 
     /**
