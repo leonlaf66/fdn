@@ -13,9 +13,13 @@ class Rets
             $ids[] = $rets->id;
         }
         $list = ArrayHelper::index(\common\estate\Rets::all($ids), 'list_no');
-        return array_map(function ($id) use ($list){
+        $list = array_map(function ($id) use ($list){
             return $list[$id] ?? null;
         }, $ids);
+
+        return array_filter($list, function ($d) {
+            return is_null($d) === false;
+        });
     }
 
     public static function getPhotoUrl($listNo, $n = 0, $w = 100, $h = 100)
