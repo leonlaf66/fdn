@@ -1,5 +1,5 @@
 <?php
-namespace common\support;
+namespace common\supports;
 
 class AppConfigs extends \yii\db\ActiveRecord
 {

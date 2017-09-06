@@ -52,7 +52,7 @@ class WS extends Yii
 
     public static function getStaticData($name)
     {
-        return include(dirname(__DIR__) . "/data/{$name}.php");
+        return include(__DIR__ . "/data/{$name}.php");
     }
 
     public static function share($key, $value = null)

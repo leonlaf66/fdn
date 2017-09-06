@@ -1,5 +1,5 @@
 <?php
-namespace common\web;
+namespace common\supports;
 
 class SiteApp extends \yii\web\Application
 {

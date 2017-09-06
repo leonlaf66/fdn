@@ -1,6 +1,7 @@
 <?php
-$config = \yii\helpers\ArrayHelper::merge([
-    'domain' => '',
+return \yii\helpers\ArrayHelper::merge([
+    'id' => 'usleju',
+    'language' => 'en-US',
     'configuationData' => include(__DIR__.'/system.php'),
     'components' => [
         'db' => [
@@ -36,20 +37,13 @@ $config = \yii\helpers\ArrayHelper::merge([
                 'from'=>[]
             ]
         ],
-        'session' => [
-            'useCookies' => true,
-            'cookieParams' => [
-                'domain' => '.usleju.local',
-                'httpOnly' => true,
-            ],
-        ],
         'wxImage' => [
-            'class' => 'common\web\WXImage',
+            'class' => 'common\supports\WXImage',
             'baseDir' => '',
             'baseUrl' => ''
         ],
         'shellMessage' => [
-            'class' => 'common\web\ShellMessage',
+            'class' => 'common\supports\ShellMessage',
             'commandRootDir' => ''
         ],
         'i18n' => [ 
@@ -59,9 +53,9 @@ $config = \yii\helpers\ArrayHelper::merge([
                     'sourceMessageTable'=>'i18n_source_message',
                     'messageTable'=>'i18n_message',
                     'forceTranslation'=>true,
-                    'sourceLanguage' => 'en',
+                    'sourceLanguage' => 'en-US',
                     'cachingDuration' => 86400,
-                    'enableCaching' => false,
+                    'enableCaching' => true,
                 ]
             ],
         ],
@@ -70,35 +64,19 @@ $config = \yii\helpers\ArrayHelper::merge([
         ]
     ],
     'params' => [
-        'email' => 'admin@usleju.com',
-        'iconfontUrl' => '//at.alicdn.com/t/font_318117_0kw9eie5sp6nu3di.css',
+        'email' => '',
         'frontend' => [
-            'baseUrl' => 'http://www.usleju.local'
+            'baseUrl' => ''
         ],
-        'systemConfigData' => include(__DIR__.'/system.php'),
         'rets' => [
-            'defPhotoUrl' => 'http://media.usleju.local/rets/placeholder.jpg',
+            'defPhotoUrl' => '',
         ],
         'media' => [
-            'root' => '/Develops/branches/usleju/medias',
-            'baseUrl' => 'http://media.usleju.local'
+            'root' => '',
+            'baseUrl' => ''
         ]
     ],
     'aliases'=>[
         '@COMMON'=>dirname(__DIR__)
     ]
-], include(__DIR__.'/local.php'));
-
-if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
-    //$config['bootstrap'][] = 'debug';
-    //$config['modules']['debug'] = [
-     //'class' => 'yii\debug\Module',
-    //];
-    //$config['bootstrap'][] = 'gii';
-    //$config['modules']['gii'] = [
-     //'class' => 'yii\gii\Module',
-    //];
-}
-
-return $config;
+], include(__DIR__.'/base.local.php'));

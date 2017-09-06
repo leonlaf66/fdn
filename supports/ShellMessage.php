@@ -1,5 +1,5 @@
 <?php
-namespace common\web;
+namespace common\supports;
 
 class ShellMessage extends \yii\base\Component
 {

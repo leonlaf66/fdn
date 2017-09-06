@@ -1,5 +1,5 @@
 <?php
-namespace common\support;
+namespace common\supports;
 
 use WS;
 use yii\db\Query;

@@ -1,6 +1,6 @@
 <?php
 // http://mmbiz.qpic.cn/mmbiz_jpg/jwhY1YicXqftWiaZiclttsNRia8kwdMysMuJDvZCAAq4HkkkHV4Y7CdiaH6HYAK5PYcE9ADg8UiaRXiaiaEcjm0U1UEpPQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1
-namespace common\web;
+namespace common\supports;
 
 class WXImage extends \yii\base\Component
 {

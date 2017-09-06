@@ -60,9 +60,17 @@ function array_key_value($array, $callable)
     return $results;
 }
 
-function get_fdn_etc()
+function get_fdn_etc($type = null)
 {
-    return include(dirname(__DIR__).'/etc/main.php');
+    $configs = include(__DIR__.'/etc/base.php');
+    if ($type) {
+        $configs = \yii\helpers\ArrayHelper::merge(
+            $configs,
+            include(__DIR__.'/etc/'.$type.'.php'),
+            include(__DIR__.'/etc/'.$type.'.local.php')
+        );
+    }
+    return $configs;
 }
 
 function media_url($name = null)

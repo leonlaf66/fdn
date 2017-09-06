@@ -1,2 +1,3 @@
-/etc/local.php
+/etc/base.local.php
+/etc/web.local.php
 /data
