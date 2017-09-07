@@ -85,6 +85,7 @@ class RetsIndex extends \common\core\ActiveRecord
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
+                'class' => '\common\supports\Pagination',
                 'pagesize' => 15
              ]
         ]);
