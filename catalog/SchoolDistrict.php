@@ -67,10 +67,10 @@ class SchoolDistrict extends \common\core\ActiveRecord
 
     public function getSummary($name)
     {
-        $sql = 'select data from schooldistrict_data where town_id=:town and path=:name';
+        $sql = 'select data from schooldistrict_data where code=:code and path=:name';
         $value = \WS::$app->db->createCommand($sql)
-            ->bindValue(':town', $this->code)
-            ->bindValue(':name', 'sd/'.$name)
+            ->bindValue(':code', $this->code)
+            ->bindValue(':name', $name)
             ->queryScalar();
 
         return json_decode($value);
