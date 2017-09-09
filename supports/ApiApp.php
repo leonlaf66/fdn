@@ -11,8 +11,6 @@ class ApiApp extends \yii\web\Application
 
     public function bootstrap()
     {
-        $this->headersResponse(); 
-
         $this->houseInit();
         $this->initModules();
         parent::bootstrap();
