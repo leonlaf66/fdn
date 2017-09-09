@@ -11,11 +11,20 @@ class ApiApp extends \yii\web\Application
 
     public function bootstrap()
     {
+        $this->headersResponse(); 
+
         $this->houseInit();
         $this->initModules();
         parent::bootstrap();
-
         $this->initLanguage();
+    }
+
+    protected function headersResponse()
+    {
+        header('content-type:application:json;charset=utf8');
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Request-Method:OPTIONS,GET,POST,DELETE");
+        header('Access-Control-Allow-Headers:x-requested-with,content-type'); 
     }
 
     protected function houseInit()
