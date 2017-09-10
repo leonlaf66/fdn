@@ -47,10 +47,10 @@ class Town extends \common\core\ActiveRecord
         return $data;
     }
 
-    public static function searchKeywords($words, $stateId = null)
+    public static function searchKeywords($words, $stateId = 'MA')
     {
         return static::find()->where([
-            'state' => $stateId ?? \WS::$app->stateId
+            'state' => $stateId
         ])->andWhere('name=:nm or name_cn=:nm', [
             ':nm' => $words
         ])->one();

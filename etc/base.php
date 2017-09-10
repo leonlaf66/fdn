@@ -74,6 +74,9 @@ return \yii\helpers\ArrayHelper::merge([
         'media' => [
             'root' => '',
             'baseUrl' => ''
+        ],
+        'googleMap' => [
+            'key' => ''
         ]
     ],
     'aliases'=>[

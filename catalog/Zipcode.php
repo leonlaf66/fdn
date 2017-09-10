@@ -8,10 +8,10 @@ class Zipcode extends \common\core\ActiveRecord
         return 'zipcodes';
     }
 
-    public static function searchKeywords($words)
+    public static function searchKeywords($words, $stateId = 'MA')
     {
         return self::find()->where([
-            'state' => \WS::$app->stateId
+            'state' => $stateId
         ])->andWhere([
             'zip' => $words,
         ])->one();
