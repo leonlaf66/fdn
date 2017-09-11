@@ -6,6 +6,9 @@ return [
     'mf_type_name'=>[
         'title'=>'Mutifamily Type',
         'index'=>'mf_type',
-        'map'=>1
+        'map'=>1,
+        'zh-CN'=>[
+            'title' => '多家庭类型'
+        ]
     ]
 ];

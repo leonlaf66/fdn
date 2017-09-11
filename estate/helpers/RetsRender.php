@@ -19,6 +19,11 @@ class RetsRender
     {
         $options = array_merge($this->_fieldMap($field), $options);
 
+        if (\WS::$app->language === 'zh-CN' && isset($options['zh-CN'])) {
+            $options = \yii\helpers\ArrayHelper::merge($options, (array)$options['zh-CN']);
+            unset($options['zh-CN']);
+        }
+
         //数据字段名
         $index = Ah::getValue($options, 'index', $field);
 
@@ -128,9 +133,10 @@ class RetsRender
                 if(isset($options['values'])) {
                     $options['values'] = (array)$options['values'];
                 }
+                /*
                 if (\WS::$app->language === 'zh-CN' && isset($options['zh-CN'])) {
                     $options = \yii\helpers\ArrayHelper::merge($options, (array)$options['zh-CN']);
-                }
+                }*/
 
                 $arrGroup['items'][$name] = $this->get($name, $options);
             }
