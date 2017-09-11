@@ -83,8 +83,10 @@ class RetsRender
             $result['suffix'] = $suffix;
         }
 
-        if(! $result['value']) {
+        if(is_null($result['value']) || $result['value'] === '') {
             $result['value'] =  tt('Unknown', '未提供');
+            $result['prefix'] = null;
+            $result['suffix'] = null;
         }
 
         // 清除多余无用的前后缀
