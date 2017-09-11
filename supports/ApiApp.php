@@ -51,11 +51,12 @@ class ApiApp extends \yii\web\Application
     {
         $headers = \Yii::$app->request->headers;
 
-        if($language = $headers->get('language')) {
-            if (in_array($language, ['en-US', 'zh-CN'])) {
-                $this->language = $language;
-            }
+        $language = $headers->get('language');
+        if (!$language) {
+            $language = \Yii::$app->request->get('language', 'en-US');
         }
+
+        $this->language = in_array($language, ['en-US', 'zh-CN']) ? $language : 'en-US';
     }
 
     protected function initModules()
