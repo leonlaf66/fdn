@@ -112,12 +112,11 @@ class RetsRender
             ->where(['type_id'=>$typeId])->scalar();
 
         $arrGroups = [];
-        $t = lang('rets', true);
 
         $xml = simplexml_load_string("<groups>{$xmlContent}</groups>");
         $groups = $xml->xpath('/groups/group');
         foreach($groups as $group) {
-            $arrGroup = ['title'=>$t((string)$group->title,[], true),'items'=>[]];
+            $arrGroup = ['title'=>(string)$group->title,'items'=>[]];
             if(isset($group->layout)) $arrGroup['layout'] = (string)($group->layout);
             $items = $group->xpath('items');
             foreach($items[0] as $item) {
