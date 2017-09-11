@@ -175,8 +175,8 @@ class RetsRender
         switch ($type) {
             case 'price':
             case 'sell.total.price':
-                if (\WS::$app->language === 'zn-CN') {
-                    if (floatval($value) > 10000) {
+                if (\WS::$app->language === 'zh-CN') {
+                    if (floatval($val) > 10000) {
                         $resultNew['value'] = number_format(floatval($val) / 10000.0);
                         $resultNew['prefix'] = null;
                         $resultNew['suffix'] = '万美元';
@@ -190,10 +190,9 @@ class RetsRender
                     $resultNew['suffix'] = null;
                     $resultNew['value'] = number_format(floatval($val), 0);
                 }
-                
                 break;
             case 'area':
-                if (\WS::$app->language === 'zn-CN') {
+                if (\WS::$app->language === 'zh-CN') {
                     $resultNew['value'] = number_format(intval(floatval($val) * 0.092903), 0);
                     $resultNew['prefix'] = null;
                     $resultNew['suffix'] = '平方米';
@@ -203,7 +202,7 @@ class RetsRender
                 }
                 break;
             case 'price.per.sq-ft':
-                if (\WS::$app->language === 'zn-CN') {
+                if (\WS::$app->language === 'zh-CN') {
                     $resultNew['value'] = number_format(floatval($val) / 0.092903, 0);
                     $resultNew['suffix'] = '美元/平方米';
                 } else {
