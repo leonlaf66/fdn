@@ -3,29 +3,13 @@ namespace common\estate\dict;
 
 use WS;
 
-class MapDetail extends \yii\base\Model
+class MapDetail extends \common\core\ActiveRecord
 {
-    public $type;
-    public $content;
-
-    public static function findOne($type)
-    {
-        $m = new static();
-        $m->type = $type;
-
-        $cacheFile = self::getCacheFile($type);
-        if(file_exists($cacheFile)) {
-            $m->content = file_get_contents($cacheFile);
-        }
-
-        return $m;
+    public static function tableName()  
+    {  
+        return 'rets_detail_field_rules';
     }
-
-    public static function getCacheFile($type)
-    {
-        return __DIR__.'/../config/details/rets.view.'.$type.'.map.php';
-    }
-
+    
     public function asArray()
     {
         $arrGroups = [];

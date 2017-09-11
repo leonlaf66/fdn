@@ -40,9 +40,11 @@ class RetsRender
         $result = [
             'id'=>$field,
             'title'=>'',
-            'value'=>$value,
-            'formatedValue' => null,
             'rawValue'=>$rawValue,
+            'prefix' => null,
+            'value'=>$value,
+            'suffix' => null,
+            'formatedValue' => null,
         ];
         
         //标题
@@ -65,7 +67,7 @@ class RetsRender
         //数据格式化
         if ($formater = Ah::getValue($options, 'format')) {
             if (is_string($formater)) {
-                $result['value'] = $this->_customFormat($formater, $result['value']);
+                $this->_customFormat($formater, $result);
             } else {
                 $result['value'] = $formater($result['value']);
             }
@@ -80,6 +82,14 @@ class RetsRender
         if ($suffix = Ah::getValue($options, 'suffix')) {
             $result['suffix'] = $suffix;
         }
+
+        if(! $result['value']) {
+            $result['value'] =  tt('Unknown', '未提供');
+        }
+
+        // 清除多余无用的前后缀
+        if(!$result['prefix']) unset($result['prefix']);
+        if(!$result['suffix']) unset($result['suffix']);
 
         //格式化过后的数据
         $result['formatedValue'] = $result['value'];
@@ -117,8 +127,8 @@ class RetsRender
                 if(isset($options['values'])) {
                     $options['values'] = (array)$options['values'];
                 }
-                if(isset($options['zh-CN'])) {
-                    $options['zh-CN'] = (array)$options['zh-CN'];
+                if (\WS::$app->language === 'zh-CN' && isset($options['zh-CN'])) {
+                    $options = \yii\helpers\ArrayHelper::merge($options, (array)$options['zh-CN']);
                 }
 
                 $arrGroup['items'][$name] = $this->get($name, $options);
@@ -156,17 +166,53 @@ class RetsRender
         return $map;
     }
 
-    protected function _customFormat($type, $val)
+    protected function _customFormat($type, & $result)
     {
+        $val = $result['value'];
+        $resultNew = [];
+
         switch ($type) {
+            case 'price':
             case 'sell.total.price':
-                return number_format(floatval($val) * 1.0 / 10000, 2);
+                if (\WS::$app->language === 'zn-CN') {
+                    if (floatval($value) > 10000) {
+                        $resultNew['value'] = number_format(floatval($val) / 10000.0);
+                        $resultNew['prefix'] = null;
+                        $resultNew['suffix'] = '万美元';
+                    } else {
+                        $resultNew['prefix'] = null;
+                        $resultNew['suffix'] = '美元';
+                        $resultNew['value'] = number_format(floatval($val), 0);
+                    }
+                } else {
+                    $resultNew['prefix'] = '$';
+                    $resultNew['suffix'] = null;
+                    $resultNew['value'] = number_format(floatval($val), 0);
+                }
+                
+                break;
             case 'area':
-                return intval(floatval($val) * 0.092903);
+                if (\WS::$app->language === 'zn-CN') {
+                    $resultNew['value'] = number_format(intval(floatval($val) * 0.092903), 0);
+                    $resultNew['prefix'] = null;
+                    $resultNew['suffix'] = '平方米';
+                } else {
+                    $resultNew['value'] = number_format(floatval($val), 0);
+                    $resultNew['suffix'] = 'Sq.Ft';
+                }
+                break;
             case 'price.per.sq-ft':
-                return number_format(floatval($val) / 0.092903, 2);
+                if (\WS::$app->language === 'zn-CN') {
+                    $resultNew['value'] = number_format(floatval($val) / 0.092903, 0);
+                    $resultNew['suffix'] = '美元/平方米';
+                } else {
+                    $resultNew['value'] = number_format(floatval($val), 0);
+                    $resultNew['suffix'] = null;
+                }
+
         }
-        return $val;
+
+        $result = array_merge($result, $resultNew);
     }
 
     protected function _getConfigFile($name)
