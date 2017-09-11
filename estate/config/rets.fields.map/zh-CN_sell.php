@@ -3,7 +3,7 @@ return [
     'list_price'=>[
         'prefix'=>'',
         'suffix'=>'万美元',
-        'format'=>'sell.total.price'
+        'format'=>'price'
     ],
     'lot_size'=>[
         'suffix'=>'平方米',

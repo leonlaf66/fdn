@@ -6,6 +6,9 @@ return [
     'ld_type_name'=>[
         'title'=>'Land Type',
         'index'=>'ld_type',
-        'map'=>1
+        'map'=>1,
+        'zh-CN'=>[
+            'title'=>'土地类型'
+        ]
     ]
 ];
