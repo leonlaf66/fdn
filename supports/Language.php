@@ -12,16 +12,20 @@ class Language
 
         $query = new Query();
 
-        $findSql = 'select id from i18n_source_message where category=:category and message=:message';
         $sourceId = $query
             ->from('i18n_source_message')
             ->select('id')
             ->where(['category'=>$category, 'message'=>$source])
             ->scalar();
+
         if(! $sourceId) {
-            WS::$app->db->createCommand()->insert('i18n_source_message', [
+            WS::$app->db
+                ->createCommand()
+                ->insert('i18n_source_message', [
                     'category'=>$category, 'message'=>$source
-                ])->execute();
+                ])
+                ->execute();
+            
             $sourceId = WS::$app->db->getLastInsertID();
         }
         else {
