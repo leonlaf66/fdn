@@ -41,6 +41,11 @@ function _tt()
     echo call_user_func_array('tt', $texts);
 }
 
+function is_english()
+{
+    return \WS::$app->language === 'en-US';
+}
+
 function additionMonthDate($monthNum = -1)  
 {  
     list($year, $month, $day)= explode('-', '2017-03-31');
