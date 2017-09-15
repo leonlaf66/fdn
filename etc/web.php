@@ -11,6 +11,9 @@ $config = \yii\helpers\ArrayHelper::merge(include(__DIR__.'/base.php'), [
     ],
     'params' => [
         'iconfontUrl' => '//at.alicdn.com/t/font_318117_0kw9eie5sp6nu3di.css',
+        'webApp' => [
+            'baseUrl' => ''
+        ],
         'resource' => [
             'root' => '',
             'baseUrl' => ''

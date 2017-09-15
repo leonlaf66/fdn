@@ -22,6 +22,11 @@ class SiteApp extends \yii\web\Application
         parent::bootstrap();
     }
 
+    public function getEtcConfigs($configFile)
+    {
+        return include(__DIR__.'/../etc/'.$configFile.'.php');
+    }
+
     protected function houseInit()
     {
         if ($houseBaseUrl = \WS::$app->request->cookies->getValue('house_base_url')) {
