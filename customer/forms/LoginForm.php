@@ -30,7 +30,7 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'account_id'=>tt('Username/Email Address/Phone Number', '用户名/邮件地址/手机号码'),
+            'account_id'=>tt('Email Address/Phone Number', '邮件地址/手机号码'),
             'password'=>tt('Password', '密码'),
             'rememberMe' => tt('Remember me', '保持登陆')
         ];
@@ -38,7 +38,7 @@ class LoginForm extends Model
 
     public function validateAccountId($attribute, $params)
     {
-        if(! Account::find()->where('username=:id or email=:id or phone_number=:id', [':id' => $this->$attribute])->exists()) {
+        if(! Account::find()->where('email=:id or phone_number=:id', [':id' => $this->$attribute])->exists()) {
             $this->addError($attribute, tt('The account not exist!', '不存在的帐号!'));
             return false;
         }

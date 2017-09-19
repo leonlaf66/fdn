@@ -18,11 +18,12 @@ class Profile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'phone_number', 'job_name', 'where_from'], 'required'],
+            [['name', /*'phone_number', 'job_name',*/ 'where_from'], 'required'],
             [['name'], 'string', 'max'=>20],
             [['phone_number'], 'string', 'max' => 30],
             [['job_name'], 'string', 'max' => 30],
             [['where_from'], 'in', 'range' => ['cn', 'us']],
+            [['user_id'], 'safe']
         ];
     }
 

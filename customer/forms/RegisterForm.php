@@ -7,7 +7,6 @@ use common\customer\Account;
 
 class RegisterForm extends Model
 {
-    public $username;
     public $email;
     public $password;
     public $confirm_password;
@@ -16,11 +15,8 @@ class RegisterForm extends Model
     public function rules()
     {
         return [
-            [['username', 'email'], 'filter', 'filter'=>'trim'],
-            [['username', 'email', 'password'], 'required'],
-            [['username'], 'string', 'min'=>4, 'max'=>15],
-            [['username'], 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/', 'message' => WS::t('account', 'Your username can only contain alphanumeric characters, underscores and dashes.')],
-            [['username'], 'unique', 'targetClass'=>Account::className(), 'message'=>WS::t('account', 'This username already exists!')],
+            [['email'], 'filter', 'filter'=>'trim'],
+            [['password'], 'required'],
             [['email'], 'email'],
             [['email'], 'string', 'min'=>6, 'max'=>50],
             [['email'], 'unique', 'targetClass'=>Account::className(), 'message'=>WS::t('account', 'This email already exists!')],
@@ -33,7 +29,6 @@ class RegisterForm extends Model
     public function attributeLabels()
     {
         return [
-            'username'=>tt('User Name', '用户名'),
             'email'=>tt('Email Address', '邮箱地址'),
             'password'=>tt('Password', '密码'),
             'confirm_password'=>tt('Confirm Password', '确认密码'),
@@ -53,7 +48,6 @@ class RegisterForm extends Model
     public function accountRegister()
     {
         $account = new Account();
-        $account->username = $this->username;
         $account->email = $this->email;
         $account->password = md5($this->password);
         $account->auth_key = WS::$app->getSecurity()->generateRandomString();

@@ -19,7 +19,6 @@ class Account extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['email', 'password'], 'required'],
             [['email'], 'email'],
             [['password'], 'string', 'max' => 32],
             [['auth_key'], 'string', 'max' => 100],
@@ -50,6 +49,11 @@ class Account extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return static::findOne($id);
     }
 
+    public static function findByOpenId($openId)
+    {
+        return static::findOne(['open_id' => $openId]);
+    }
+
     /**
      * @inheritdoc
      */
@@ -67,7 +71,7 @@ class Account extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function findByAid($aid)
     {
           $user = self::find()
-            ->where('username=:id or email=:id or phone_number=:id', [':id' => $aid])
+            ->where('email=:id or phone_number=:id', [':id' => $aid])
             ->asArray()
             ->one();
 
