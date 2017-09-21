@@ -23,7 +23,7 @@ class Account extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [['password'], 'string', 'max' => 32],
             [['auth_key'], 'string', 'max' => 100],
             [['access_token'], 'string', 'max' => 100],
-            [['confirmed_at', 'blocked_at', 'registration_ip', 'created_at', 'updated_at', 'flags'], 'safe']
+            [['open_id', 'confirmed_at', 'blocked_at', 'registration_ip', 'created_at', 'updated_at', 'flags'], 'safe']
         ];
     }
 
@@ -126,7 +126,7 @@ class Account extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return WS::$app->mailer->compose('account/confirm', ['user' => $this, 'url'=>$url])
             ->setTo($this->email)
-            ->setSubject('Account Confirm')
+            ->setSubject(tt('Account Confirm', '帐号确认'))
             ->send();
     }
 
@@ -142,7 +142,7 @@ class Account extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return WS::$app->mailer->compose('account/forgot-pwd', ['user' => $this, 'url'=>$url])
             ->setTo($this->email)
-            ->setSubject('Forgot Password')
+            ->setSubject(tt('Forgot Password', '找回密码'))
             ->send();
     }
 
@@ -159,7 +159,15 @@ class Account extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
         return WS::$app->mailer->compose('account/temp-pwd', ['user' => $this, 'password' => $password])
             ->setTo($this->email)
-            ->setSubject('Forgot Password')
+            ->setSubject(tt('Temp Password', '临时密码'))
+            ->send();
+    }
+
+    public function sendBindEmail($email, $url)
+    {
+        return WS::$app->mailer->compose('account/bind-email', ['user' => $this, 'url'=>$url])
+            ->setTo($email)
+            ->setSubject(tt('Bind Email Address', '绑定邮箱地址'))
             ->send();
     }
 

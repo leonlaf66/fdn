@@ -10,13 +10,17 @@ $config = \yii\helpers\ArrayHelper::merge(include(__DIR__.'/base.php'), [
         ]
     ],
     'params' => [
-        'iconfontUrl' => '//at.alicdn.com/t/font_318117_0kw9eie5sp6nu3di.css',
+        'iconfontUrl' => '//at.alicdn.com/t/font_318117_ufr0yy7nv5n1xlxr.css',
         'webApp' => [
             'baseUrl' => ''
         ],
         'resource' => [
             'root' => '',
             'baseUrl' => ''
+        ],
+        'wechat' => [
+            'appId' => '',
+            'appSecret' => ''
         ]
     ]
 ], include(__DIR__.'/web.local.php'));
