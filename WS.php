@@ -14,7 +14,7 @@ class WS extends Yii
 
         $result = parent::t($category, $message, $params, $language);
 
-        if(! \Yii::$app->translationStatus) {
+        if(!isset(\Yii::$app->translationStatus) || !\Yii::$app->translationStatus) {
             return $result;
         }
 

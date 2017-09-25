@@ -210,6 +210,12 @@ class Rets extends \common\core\ActiveRecord
         return self::find()->where(['in', 'list_no', $listNos])->all();
     }
 
+    public function getUrl()
+    {
+        $type = $this->prop_type === 'RN' ? 'lease' : 'purchase';
+        return "house/{$type}/{$this->list_no}/";
+    }
+
     public function render()
     {
         static $renders = [];

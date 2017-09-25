@@ -88,7 +88,7 @@ class Town extends \common\core\ActiveRecord
     public static function get($code, $field='name')
     {
         static $data = [];
-        $stateId = \WS::$app->stateId;
+        $stateId = \WS::$app->stateId ?? 'MA';
         if(! isset($data[$stateId])) {
             foreach(self::find(['state'=>$stateId])->all() as $m) {
                 $data[$stateId][$m->short_name] = $m;
@@ -97,10 +97,10 @@ class Town extends \common\core\ActiveRecord
         return isset($data[$stateId][$code]) ? $data[$stateId][$code]->$field : '';
     }
 
-    public static function mapOptions()
+    public static function mapOptions($idField = 'id')
     {
         $citys = self::find()->where(['state'=>'MA'])->all();
-        return \common\helper\ArrayHelper::index($citys, 'id', tt('name', 'name_cn'));
+        return \common\helper\ArrayHelper::index($citys, $idField, tt('name', 'name_cn'));
     }
 
     protected static function getAllZipCodes()

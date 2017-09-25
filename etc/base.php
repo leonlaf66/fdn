@@ -21,7 +21,7 @@ return \yii\helpers\ArrayHelper::merge([
             'tablePrefix'=>''
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+            'class' => '\common\cms\Mailer',
             'useFileTransport' => false,
             'viewPath'=>'@COMMON/mail',
             'transport'=>[

@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 class RetsNewsletter extends \yii\db\ActiveRecord
 {
     public $city;
+    public $prop_type;
     public $price_range;
     public $bed_rooms;
     public $bath_rooms;
@@ -28,7 +29,7 @@ class RetsNewsletter extends \yii\db\ActiveRecord
             'prop_type'=>tt('Type', '类型'),
             'name'=>tt('Name', '名称'),
             'city'=>tt('City', '城市'),
-            'price_range'=>tt('Price Range', '价格范围'),
+            'price_range'=>tt('Price Range($)', '价格区间(美元)'),
             'bed_rooms'=>tt('Beds', '卧室数'),
             'bath_rooms'=>tt('Baths', '浴室数'),
             'notification_cycle'=>tt('Cycle', '周期'),
@@ -45,7 +46,7 @@ class RetsNewsletter extends \yii\db\ActiveRecord
             [['bed_rooms', 'bath_rooms'], 'number', 'min'=>0],
             [['notification_cycle'], 'in', 'range'=>[1,2]],
             [['city'], 'safe'],
-            [['id', 'user_id', 'prop_type', 'data', 'next_task_at', 'created_at', 'updated_at'], 'safe']
+            [['id', 'language', 'user_id', 'prop_type', 'data', 'next_task_at', 'created_at', 'updated_at'], 'safe']
         ];
     }
 
@@ -86,6 +87,12 @@ class RetsNewsletter extends \yii\db\ActiveRecord
                 return ArrayHelper::getValue($typeOptions, $this->prop_type);
             case 'city':
                 return ArrayHelper::getValue($cityOptions, $this->city);
+            case 'price_range':
+                $s = explode('-', $this->$attribute);
+                $s[0] = number_format($s[0], 0);
+                $s[1] = number_format($s[1], 0);
+
+                return tt('$'.$s[0].'&nbsp;-&nbsp;$'.$s[1], $s[0].'美元&nbsp;-&nbsp;'.$s[1].'美元');
             case 'bed_rooms':
             case 'bath_rooms':
                 if($this->$attribute !== '0') {
@@ -104,20 +111,23 @@ class RetsNewsletter extends \yii\db\ActiveRecord
         $results = [];
         $data = json_decode($this->data);
         foreach($data as $name=>$value) {
-            $label = $this->getAttributeLabel($name);
-            $results[$label] = $this->getNamedValue($name, $value);
+            if ($value !== '') {
+                $label = $this->getAttributeLabel($name);
+                $results[$label] = $this->getNamedValue($name, $value);
+            }
         }
         return $results;
     }
 
     public static function findTasks()
     {
+        //return self::find();
         return self::find()->andWhere('next_task_at<now()');
     }
 
     public function makeTaskStatus()
     {
-        $this->last_task_at = date('Y-m-d', time()).'00:00:00';
+        $this->last_task_at = date('Y-m-d', time()).' 00:00:00';
 
         $today = strtotime(date('Y-m-d', time()));
         if($this->notification_cycle == 1) {
@@ -133,53 +143,51 @@ class RetsNewsletter extends \yii\db\ActiveRecord
     public function getSearchResult()
     {
         $apply = [
-            'prop_type'=>function($value, $search) {
+            'prop_type'=>function($value, $query) {
                 if($value !== '') {
-                    $types = \common\rets\record\Mls::propertyTypeOptions();
-                    $value = strtoupper($value);
-                    if(isset($types[$value])) {
-                        $search->addFilter('property_type', $types[$value]);   
-                    }
+                    $query->andWhere(['prop_type' => $value]);
                 }
             },
-            'city'=>function($cityCode, $search) {
+            'city'=>function($cityCode, $query) {
                 if($cityCode !== '') {
-                    $search->addFilter('town', $cityCode);
+                    $query->andWhere(['town' => $cityCode]);
                 }
             },
-            'price_range'=>function($value, $search) {
+            'price_range'=>function($value, $query) {
                 list($min, $max) = explode('-', $value);
                 $min = intval($min); $max = intval($max);
                 if($max == 0) $max = 9999999999;
 
-                $search->addRangeFilter('list_price', $min, $max);
+                $query->andWhere(['between', 'list_price', $min, $max]);
             },
-            'bed_rooms'=>function($value, $search) {
+            'bed_rooms'=>function($value, $query) {
                 if(intval($value) > 0) {
-                    $search->addRangeFilter('no_bedrooms', intval($value), 999999);
+                    $query->andWhere(['>', 'no_bedrooms', intval($value)]);
                 }
             },
-            'bath_rooms'=>function($value, $search) {
+            'bath_rooms'=>function($value, $query) {
                 if(intval($value) > 0) {
-                    $search->addRangeFilter('no_bathrooms', intval($value), 99999);
+                    $query->andWhere(['>', 'no_bathrooms', intval($value)]);
                 }
             }
         ];
 
-        $search = \common\estate\Rets::find();
-        $search->setPageSize(1000);
+        $search = \common\estate\RetsIndex::search();
+        $search->pagination->pageSize = 100;
         
         foreach($apply as $attribute=>$fn) {
             if($value = $this->$attribute) {
-                $fn($value, $search);
+                $fn($value, $search->query);
             }
         }
 
         $today = strtotime(date('Y-m-d', time()));
-        $startTime = strtotime('-1 week', $today);
-        $search->addRangeFilter('list_date', $startTime, time());
+        $startTime = date('Y-m-d H:i:s', strtotime('-1 week', $today));
+        $endTime = date('Y-m-d H:i:s', time());
 
-        return $search->query();
+        $search->query->andWhere(['between', 'list_date', $startTime, $endTime]);
+
+        return \common\estate\helpers\Rets::result($search);
     }
 
     public function beforeSave($insert)
@@ -190,6 +198,7 @@ class RetsNewsletter extends \yii\db\ActiveRecord
         else {
             $this->updated_at = date('Y-m-d H:i:s', time());
         }
+        $this->language = WS::$app->language;
 
         if($insert || is_null($this->next_task_at)) {
             $today = strtotime(date('Y-m-d', time()));
@@ -203,6 +212,7 @@ class RetsNewsletter extends \yii\db\ActiveRecord
 
         $this->data = json_encode([
             'city'=>$this->city,
+            'prop_type' => $this->prop_type,
             'price_range'=>$this->price_range,
             'bed_rooms'=>$this->bed_rooms,
             'bath_rooms'=>$this->bath_rooms,
@@ -223,7 +233,7 @@ class RetsNewsletter extends \yii\db\ActiveRecord
 
     public static function cityOptions()
     {
-        return \common\estate\Rets::cityOptions();
+        return \common\catalog\Town::mapOptions('short_name');
     }
 
     public static function typeOptions()
@@ -242,6 +252,6 @@ class RetsNewsletter extends \yii\db\ActiveRecord
     }
 
     public static function cycleOptions(){
-        return ['1'=>\WS::t('rets-nl', 'Daily'), '2'=>\WS::t('rets-nl', 'Weekly')];
+        return ['1'=>tt('Daily', '每天'), '2'=>tt('Weekly', '每周')];
     }
 }
