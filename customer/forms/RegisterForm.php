@@ -17,6 +17,7 @@ class RegisterForm extends Model
         return [
             [['email'], 'filter', 'filter'=>'trim'],
             [['password'], 'required'],
+            [['accept_agreed'], 'validateProtocol', 'skipOnEmpty'=>false],
             [['email'], 'email'],
             [['email'], 'string', 'min'=>6, 'max'=>50],
             [['email'], 'unique', 'targetClass'=>Account::className(), 'message'=>WS::t('account', 'This email already exists!')],
@@ -41,6 +42,15 @@ class RegisterForm extends Model
         if (!$this->hasErrors()) {
             if($this->password !== $this->confirm_password) {
                 $this->addError($attribute, WS::t('account', 'Please make sure your passwords match.'));
+            }
+        }
+    }
+
+    public function validateProtocol($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            if(! $this->accept_agreed) {
+                $this->addError($attribute, tt('You need access USLEJU policy!', '必须接受米乐居条款!'));
             }
         }
     }
