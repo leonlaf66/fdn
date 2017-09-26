@@ -6,3 +6,6 @@
 <?php endif?>
 
 <a href="<?php echo $url?>" target="_balnk"><?php echo $url?></a>
+<br/>
+<br/>
+Thank you, Usleju.com

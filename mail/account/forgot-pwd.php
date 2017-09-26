@@ -5,4 +5,4 @@ If clicking the link does not work, please copy and paste the URL into your brow
 <br/>
 If you did not make this request, you can ignore this message and your password will remain the same.<br/>
 <br/>
-Thank you, Wesnail.com
+Thank you, usleju.com
