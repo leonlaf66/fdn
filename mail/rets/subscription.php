@@ -3,13 +3,16 @@
 
   $styles = [
     'container' => function () {
-      echo 'max-width:720px;margin-left:auto;margin-right:auto;font-size:12px;';
+      echo 'width:687px;margin-left:auto;margin-right:auto;font-size:12px;';
     },
     'header' => function () {
-      echo 'height:100px;background-color:#99bd2a;margin-bottom:16px;';
+      echo 'height:60px;background-color:#99bd2a;margin-bottom:10px;padding:2px;box-sizing:border-box;';
+    },
+    'logo' => function () {
+      echo 'width:46px;height:46px;margin-left:7px;margin-top:3px;background-image:url(http://www.usleju.cn//static/img/logo.png);background-size:100% 100%;';
     },
     'items-box' => function () {
-      echo 'margin-left:-5px;margin-top:-20px;background-color:#ececec';
+      echo 'margin-left:-5px;margin-top:-20px;';
     },
     'item' => function () {
       echo 'display:inline-block;margin-left:5px;margin-top:20px;text-align:left;text-decoration:none;width:223px;overflow:hidden;';
@@ -34,7 +37,7 @@
 ?>
 <div style="<?php ($styles['container'])()?>">
   <div style="<?php ($styles['header'])()?>">
-    
+    <div style="<?php ($styles['logo'])()?>"></div>
   </div>
   <div style="<?php ($styles['items-box'])()?>">
     <?php foreach($retsItems as $rets):?>
