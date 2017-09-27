@@ -10,7 +10,7 @@ class DbQuery
             $count = $query->count('*', $db);
         }
         
-        $groups = $count / $size;
+        $groups = round($count * 1.0 / $size);
 
         if ($groups < 1) {
             $groups = $count > 0 ? 1: 0;
