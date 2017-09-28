@@ -36,8 +36,18 @@ class ActiveRecord extends \yii\db\ActiveRecord
                 if ($arrayFiledValue = $this->$arrayField) {
                     $arrayFiledValue = substr($arrayFiledValue, 1);
                     $arrayFiledValue = substr($arrayFiledValue, 0, strlen($arrayFiledValue) - 1);
-
-                    $this->$arrayField = explode(',', $arrayFiledValue);
+                    $tempValues = explode(',', $arrayFiledValue);
+                    foreach ($tempValues as $k => $tempValue) {
+                        if (substr($tempValue, 0, 1) === '"') {
+                            $tempValue = substr($tempValue, 1);
+                        }
+                        if (substr($tempValue, strlen($tempValue) - 1, 1) === '"') {
+                            $tempValue = substr($tempValue, 0, strlen($tempValue) - 1);
+                        }
+                        $tempValues[$k] = $tempValue;
+                    }
+                    
+                    $this->$arrayField = $tempValues;
                 } else {
                     $this->$arrayField = [];
                 }
@@ -45,7 +55,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
 
             foreach($this->jsonFields as $jsonField) {
                 if ($this->$jsonField) {
-                    $this->$jsonField = json_dncode($this->$jsonField);
+                    $this->$jsonField = json_decode($this->$jsonField);
                 }
             }
         } elseif ($type === 'save') {
