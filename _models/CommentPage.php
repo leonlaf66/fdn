@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class CommentPage extends \common\core\ActiveRecord
+class CommentPage extends ActiveRecord
 {
     public static function tableName()
     {

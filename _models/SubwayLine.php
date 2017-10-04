@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class SubwayLine extends \common\core\ActiveRecord
+class SubwayLine extends ActiveRecord
 {
     public static function tableName()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class MlsMember extends \common\core\ActiveRecord
+class MlsMember extends ActiveRecord
 {
     public static function tableName()
     {

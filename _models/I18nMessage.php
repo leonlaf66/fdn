@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class I18nMessage extends \common\core\ActiveRecord
+class I18nMessage extends ActiveRecord
 {
     public static function tableName()
     {

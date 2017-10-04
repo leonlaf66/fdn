@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class CoreConfigData extends \common\core\ActiveRecord
+class CoreConfigData extends ActiveRecord
 {
     public static function tableName()
     {

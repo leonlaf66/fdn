@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class MlsIndex extends \common\core\ActiveRecord
+class MlsIndex extends ActiveRecord
 {
     public static function tableName()
     {

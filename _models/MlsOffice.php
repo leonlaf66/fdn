@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class MlsOffice extends \common\core\ActiveRecord
+class MlsOffice extends ActiveRecord
 {
     public static function tableName()
     {

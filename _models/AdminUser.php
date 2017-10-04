@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class AdminUser extends \common\core\ActiveRecord
+class AdminUser extends ActiveRecord
 {
     public static function tableName()
     {

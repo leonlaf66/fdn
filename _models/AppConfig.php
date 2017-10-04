@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class AppConfig extends \common\core\ActiveRecord
+class AppConfig extends ActiveRecord
 {
     public static function tableName()
     {

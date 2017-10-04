@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class FsStorage extends \common\core\ActiveRecord
+class FsStorage extends ActiveRecord
 {
     public static function tableName()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class TaxonomyTerm extends \common\core\ActiveRecord
+class TaxonomyTerm extends ActiveRecord
 {
     public static function tableName()
     {

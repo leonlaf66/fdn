@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class News extends \common\core\ActiveRecord
+class News extends ActiveRecord
 {
     public static function tableName()
     {

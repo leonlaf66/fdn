@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class DictTown extends \common\core\ActiveRecord
+class DictTown extends ActiveRecord
 {
     public static function tableName()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class YellowpageTag extends \common\core\ActiveRecord
+class YellowpageTag extends ActiveRecord
 {
     public static function tableName()
     {
