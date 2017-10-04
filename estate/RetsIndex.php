@@ -83,11 +83,7 @@ class RetsIndex extends \common\core\ActiveRecord
         $query->andWhere(['=', 'is_show', true]);
         
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'class' => '\common\supports\Pagination',
-                'pagesize' => 15
-             ]
+            'query' => $query
         ]);
 
         if (!($model->load($filters) && $model->validate())) {
