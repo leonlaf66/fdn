@@ -75,7 +75,7 @@ class RetsIndex extends \common\core\ActiveRecord
         return ArrayHelper::index($all, 'town', 'total');
     }
 
-    public static function search($filters = [])
+    public static function search()
     {
         $model = new self();
 
@@ -85,15 +85,10 @@ class RetsIndex extends \common\core\ActiveRecord
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'defaultPageSize' => 15
+                'defaultPageSize' => 15,
+                'pageSize' => 15
             ]
         ]);
-
-        if (!($model->load($filters) && $model->validate())) {
-            return $dataProvider;
-        }
-
-        $query->andFilterWhere($filters);
 
         return $dataProvider;
     }
