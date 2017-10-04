@@ -85,7 +85,6 @@ class RetsIndex extends \common\core\ActiveRecord
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'defaultPageSize' => 15,
                 'pageSize' => 15
             ]
         ]);
