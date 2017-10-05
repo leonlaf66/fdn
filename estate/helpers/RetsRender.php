@@ -123,12 +123,16 @@ class RetsRender
         $xml = simplexml_load_string("<groups>{$xmlContent}</groups>");
         $groups = $xml->xpath('/groups/group');
         foreach($groups as $group) {
-            $arrGroup = ['title'=>(string)$group->title,'items'=>[]];
+            $arrGroup = ['title'=>t('rets', (string)$group->title),'items'=>[]];
             if(isset($group->layout)) $arrGroup['layout'] = (string)($group->layout);
             $items = $group->xpath('items');
             foreach($items[0] as $item) {
                 $name = $item->getName();
                 $options = (array)$item;
+
+                if (isset($options['title'])) {
+                    $options['title'] = t('rets', $options['title']);
+                }
 
                 if(isset($options['values'])) {
                     $options['values'] = (array)$options['values'];
