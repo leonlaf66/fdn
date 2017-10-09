@@ -15,7 +15,7 @@ class RetsNewsletter extends \yii\db\ActiveRecord
 
     public static function tableName()
     { 
-        return 'rets_newsletter';
+        return 'house_member_newsletter';
     }
 
     public static function t($message, $params=[])

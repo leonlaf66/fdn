@@ -10,7 +10,7 @@ class Sitemap
     {
         $query = (new \yii\db\Query())
             ->select('id')
-            ->from('catalog_yellow_page')
+            ->from('yellow_page')
             ->orderBy(['id' => 'DESC']);
 
         return $query->all();

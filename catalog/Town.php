@@ -7,7 +7,7 @@ class Town extends \common\core\ActiveRecord
 
     public static function tableName()  
     {  
-        return 'dict_town';
+        return 'town';
     }
 
     // 以name, name_cn,short_name,tax_num,zip_code为键的城市列表数据

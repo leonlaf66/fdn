@@ -10,7 +10,7 @@ class YellowPagePhoto extends \yii\db\ActiveRecord
 
     public static function tableName()  
     {  
-        return 'catalog_yellow_page_photos';
+        return 'yellow_page_photo';
     }
 
     public function getStorage()

@@ -5,7 +5,7 @@ class YellowpageTag extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'catalog_yellow_page_tags';
+        return 'yellow_page_tag';
     }
 
     public static function primaryKey()

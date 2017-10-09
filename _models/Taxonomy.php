@@ -5,7 +5,7 @@ class Taxonomy extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'catalog_taxonomy';
+        return 'taxonomy';
     }
 
     public static function primaryKey()

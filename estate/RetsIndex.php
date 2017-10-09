@@ -9,7 +9,7 @@ class RetsIndex extends \common\core\ActiveRecord
 {
     public static function tableName()
     {
-        return 'rets_mls_index';
+        return 'house_index';
     }
 
     public static function primaryKey()
@@ -68,7 +68,7 @@ class RetsIndex extends \common\core\ActiveRecord
     {
         $all = (new \yii\db\Query())
             ->select('town, count(*) as total')
-            ->from('rets_mls_index')
+            ->from('house_index')
             ->groupBy('town')
             ->all();
 

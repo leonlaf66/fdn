@@ -5,7 +5,7 @@ class FsStorage extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'fs_storage';
+        return 'storage';
     }
 
     public static function primaryKey()

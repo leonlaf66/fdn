@@ -5,7 +5,7 @@ class Comment extends \yii\db\ActiveRecord
 {
     public static function tableName()  
     {  
-        return 'comments_item';
+        return 'comment';
     }
 
     public function rules()

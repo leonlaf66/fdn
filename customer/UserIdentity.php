@@ -7,7 +7,7 @@ class UserIdentity extends \common\customer\Account
     {
         $name = (new \yii\db\Query())
             ->select('name')
-            ->from('user_profile')
+            ->from('member_profile')
             ->where(['user_id' => $this->id])
             ->scalar();
 

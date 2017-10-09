@@ -5,7 +5,7 @@ class MlsOffice extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'rets_mls_office';
+        return 'house_info_office';
     }
 
     public static function primaryKey()

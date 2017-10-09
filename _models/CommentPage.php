@@ -5,7 +5,7 @@ class CommentPage extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'comments_page';
+        return 'comment_page';
     }
 
     public static function primaryKey()

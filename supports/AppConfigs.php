@@ -5,7 +5,7 @@ class AppConfigs extends \yii\db\ActiveRecord
 {
     public static function tableName()  
     {  
-        return 'app_configs';
+        return 'app_setting';
     }
 
     public static function submit($appId, $configId, $configContent)

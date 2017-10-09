@@ -5,7 +5,7 @@ class YellowPageType extends \yii\db\ActiveRecord
 {
     public static function tableName()
     {
-        return 'catalog_yellow_page_types';
+        return 'yellow_page_type';
     }
 
     public static function termMap()

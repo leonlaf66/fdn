@@ -115,7 +115,7 @@ class RetsRender
         $typeId = strtolower($this->entity->prop_type);
         $xmlContent = (new \yii\db\Query)->select('xml_rules')
             ->select('xml_rules')
-            ->from('rets_detail_field_rules')
+            ->from('house_field_prop_rule')
             ->where(['type_id'=>$typeId])->scalar();
 
         $arrGroups = [];

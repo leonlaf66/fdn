@@ -7,7 +7,7 @@ class Roi extends \common\core\ActiveRecord
 {
     public static function tableName()
     {
-        return 'rets_roi';
+        return 'house_info_roi';
     }
 
     public static function primaryKey()

@@ -10,7 +10,7 @@ class Report
 	public static function totals()
 	{
 		$sql = "select is_rental,count(*) as total 
-					from rets_mls_index
+					from house_index
 					where is_show=true
 					group by is_rental";
 

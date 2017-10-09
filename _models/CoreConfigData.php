@@ -5,7 +5,7 @@ class CoreConfigData extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'core_config_data';
+        return 'site_setting';
     }
 
     public static function primaryKey()

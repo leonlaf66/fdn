@@ -5,7 +5,7 @@ class YellowpageCity extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'catalog_yellow_page_cities';
+        return 'yellow_page_city';
     }
 
     public static function primaryKey()

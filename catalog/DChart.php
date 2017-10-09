@@ -9,7 +9,7 @@ class DChart extends \common\core\ActiveRecord
 
     public static function tableName()  
     {  
-        return 'data_charts';
+        return 'site_chart_setting';
     }
 
     public static function findData ($path)

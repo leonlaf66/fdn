@@ -5,7 +5,7 @@ class DictTown extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'dict_town';
+        return 'town';
     }
 
     public static function primaryKey()

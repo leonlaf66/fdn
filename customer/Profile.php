@@ -7,7 +7,7 @@ class Profile extends \yii\db\ActiveRecord
 {
     public static function tableName()
     {
-        return 'user_profile';
+        return 'member_profile';
     }
 
     public static function primaryKey()

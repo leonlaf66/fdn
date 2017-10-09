@@ -297,7 +297,7 @@ class Rets extends \common\core\ActiveRecord
 
     public function isLiked()
     {
-        return WS::$app->db->createCommand('select id from rets_favorites where list_no=:id and user_id=:uid', [
+        return WS::$app->db->createCommand('select id from house_member_favority where list_no=:id and user_id=:uid', [
             ':id' => $this->list_no,
             ':uid' => WS::$app->user->id
         ])->queryScalar();

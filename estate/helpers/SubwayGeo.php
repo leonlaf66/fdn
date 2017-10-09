@@ -10,7 +10,7 @@ class SubwayGeo
     {
         static $stations = [];
         if (empty($stations)) {
-            $rows = WS::$app->db->createCommand('select id, longitude, latitude from catalog_subway_station')->queryAll();
+            $rows = WS::$app->db->createCommand('select id, longitude, latitude from subway_station')->queryAll();
             foreach ($rows as $row) {
                 $id = $row['id'];
                 $stations[$id] = ['longitude'=>$row['longitude'], 'latitude'=>$row['latitude']];
@@ -55,8 +55,8 @@ class SubwayGeo
         if(empty($results)) {
             $gettgerSql = '
                 select line.id as line_id,station.longitude, station.latitude 
-                    from catalog_subway_station as station 
-                        inner join catalog_subway_line as line on station.line_code = line.code 
+                    from subway_station as station 
+                        inner join subway_line as line on station.line_code = line.code 
                         order by line.sort_order asc, station.sort_order asc';
 
             $rows = WS::$app->db->createCommand($gettgerSql)->queryAll();

@@ -5,7 +5,7 @@ class Zipcode extends \common\core\ActiveRecord
 {
     public static function tableName()  
     {  
-        return 'zipcodes';
+        return 'zipcode_town';
     }
 
     public static function searchKeywords($words, $stateId = 'MA')

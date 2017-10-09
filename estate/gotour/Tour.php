@@ -11,7 +11,7 @@ class Tour extends \yii\db\ActiveRecord
 
     public static function tableName()
     {
-        return 'rets_tour';
+        return 'house_member_tour';
     }
 
     public function rules()

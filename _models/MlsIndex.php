@@ -5,7 +5,7 @@ class MlsIndex extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'rets_mls_index';
+        return 'house_index';
     }
 
     public static function primaryKey()

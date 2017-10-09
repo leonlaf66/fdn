@@ -5,7 +5,7 @@ class CommentPage extends \yii\db\ActiveRecord
 {
 	public static function tableName()  
     {  
-        return 'comments_page';
+        return 'comment_page';
     }
 
     public function getComment()

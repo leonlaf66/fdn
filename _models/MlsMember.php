@@ -5,7 +5,7 @@ class MlsMember extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'rets_mls_member';
+        return 'house_info_member';
     }
 
     public static function primaryKey()

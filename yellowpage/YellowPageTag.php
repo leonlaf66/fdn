@@ -10,7 +10,7 @@ class YellowPageTag extends \yii\db\ActiveRecord
 
     public function tableName()  
     {  
-        return 'catalog_yellow_page_tags';
+        return 'yellow_page_tag';
     }
 
 	public function rules()

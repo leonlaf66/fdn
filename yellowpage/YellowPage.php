@@ -9,7 +9,7 @@ class YellowPage extends \yii\db\ActiveRecord
     
     public static function tableName()
     {
-        return 'catalog_yellow_page';
+        return 'yellow_page';
     }
 
     public function getType()
@@ -46,7 +46,7 @@ class YellowPage extends \yii\db\ActiveRecord
     public static function hit($id)
     {
         return \WS::$app->db->createCommand()
-            ->update('catalog_yellow_page', [
+            ->update('yellow_page', [
                 'hits' =>new \yii\db\Expression('hits+1')
             ], 'id=:id', [
                 ':id' => $id

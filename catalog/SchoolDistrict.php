@@ -10,7 +10,7 @@ class SchoolDistrict extends \common\core\ActiveRecord
 
     public static function tableName()  
     {  
-        return 'schooldistrict_items';
+        return 'schooldistrict';
     }
 
     public static function xFind()
@@ -67,7 +67,7 @@ class SchoolDistrict extends \common\core\ActiveRecord
 
     public function getSummary($name)
     {
-        $sql = 'select data from schooldistrict_data where code=:code and path=:name';
+        $sql = 'select data from schooldistrict_setting where code=:code and path=:name';
         $value = \WS::$app->db->createCommand($sql)
             ->bindValue(':code', $this->code)
             ->bindValue(':name', $name)

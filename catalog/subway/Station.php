@@ -9,7 +9,7 @@ class Station extends \common\core\ActiveRecord
 
     public static function tableName()  
     {  
-        return 'catalog_subway_station';
+        return 'subway_station';
     }
 
     public static function getStationsByLine($code)

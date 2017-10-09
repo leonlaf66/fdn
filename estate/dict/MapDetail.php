@@ -7,7 +7,7 @@ class MapDetail extends \common\core\ActiveRecord
 {
     public static function tableName()  
     {  
-        return 'rets_detail_field_rules';
+        return 'house_field_prop_rule';
     }
     
     public function asArray()

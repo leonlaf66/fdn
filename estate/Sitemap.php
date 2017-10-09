@@ -10,7 +10,7 @@ class Sitemap
     {
         $query = (new \yii\db\Query())
             ->select('id, is_rental, index_at')
-            ->from('rets_mls_index')
+            ->from('house_index')
             ->where('is_show=true')
             ->orderBy(['index_at' => 'DESC'])
             ->limit($limit);

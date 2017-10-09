@@ -7,7 +7,7 @@ class Ave extends \common\core\ActiveRecord
 {
     public static function tableName()
     {
-        return 'rets_ave_roi';
+        return 'zipcode_roi_ave';
     }
 
     public static function primaryKey()

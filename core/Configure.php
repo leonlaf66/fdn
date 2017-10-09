@@ -7,7 +7,7 @@ class Configure extends \yii\db\ActiveRecord
 
     public static function tableName()
     {
-        return 'core_config_data';
+        return 'site_setting';
     }
 
     public static function getValue($path, $defValue=null)

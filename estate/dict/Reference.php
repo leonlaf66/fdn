@@ -10,7 +10,7 @@ class Reference extends ActiveRecord
 
     public static function tableName()  
     {  
-        return 'rets_field_reference';
+        return 'house_field_reference';
     }
 
     public static function mapForType($type)

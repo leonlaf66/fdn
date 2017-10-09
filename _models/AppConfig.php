@@ -5,7 +5,7 @@ class AppConfig extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'app_configs';
+        return 'app_setting';
     }
 
     public static function primaryKey()
