@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class SchooldiStrictSetting extends ActiveRecord
+class SchoolDistrictSetting extends ActiveRecord
 {
     public static function tableName()
     {

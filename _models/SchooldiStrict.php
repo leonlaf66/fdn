@@ -3,7 +3,7 @@ namespace models;
 
 use common\helper\ArrayHelper;
 
-class SchooldiStrict extends ActiveRecord
+class SchoolDistrict extends ActiveRecord
 {
     public $jsonData = [];
 
