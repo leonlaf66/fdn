@@ -66,7 +66,7 @@ class RetsRender
                 $result['value'] = $theFieldValueAlias;
             }
         } elseif ($relFields = Ah::getValue($options, 'map')) {
-            $result['value'] = \common\estate\dict\Reference::get(strtolower($this->entity->prop_type), $index, $value);
+            $result['value'] = \models\HouseFieldReference::get(strtolower($this->entity->prop_type), $index, $value);
         }
 
         //数据格式化

@@ -42,7 +42,7 @@ class SearchForm extends \yii\base\Model
 
     public static function search($filters = [])
     {
-        $query = \common\estate\RetsIndex::find();
+        $query = \common\estate\HouseIndex::find();
 
         //首先需规定是租房还是售房
         $query->andWhere([

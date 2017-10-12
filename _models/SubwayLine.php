@@ -3,13 +3,37 @@ namespace models;
 
 class SubwayLine extends ActiveRecord
 {
-    public static function tableName()
-    {
+    protected static $_items = null;
+    public $stations = [];
+
+    public static function tableName()  
+    {  
         return 'subway_line';
     }
 
-    public static function primaryKey()
+    public static function getMapOptions()
     {
-        return ['id'];
+        if(is_null(self::$_items)) {
+            self::$_items = self::find()->orderBy(['sort_order'=>SORT_ASC])->all();
+        }
+
+        $optionMap = [];
+        foreach(self::$_items as $item) {
+            $optionMap[$item['code']] = $item;
+        }
+
+        return $optionMap;
+    }
+
+    public static function findName($id)
+    {
+        $findParams = is_numeric($id) ? $id : ['code'=>$id];
+
+        $item = self::find($findParams)->findOne();
+        if($item && $item->id) {
+            return $item->name;
+        }
+
+        return null;
     }
 }

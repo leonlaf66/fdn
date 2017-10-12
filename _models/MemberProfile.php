@@ -1,15 +1,15 @@
 <?php
 namespace models;
 
-class YellowPageCity extends ActiveRecord
+class MemberProfile extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'yellow_page_city';
+        return 'member_profile';
     }
 
     public static function primaryKey()
     {
-        return ['id'];
+        return ['user_id'];
     }
 }

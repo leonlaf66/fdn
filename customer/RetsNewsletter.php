@@ -4,7 +4,7 @@ namespace common\customer;
 use WS;
 use yii\helpers\ArrayHelper;
 
-class RetsNewsletter extends \yii\db\ActiveRecord
+class RetsNewsletter extends \models\MemberHouseNewsletter
 {
     public $city;
     public $prop_type;
@@ -172,7 +172,7 @@ class RetsNewsletter extends \yii\db\ActiveRecord
             }
         ];
 
-        $search = \common\estate\RetsIndex::search();
+        $search = \common\estate\HouseIndex::search();
         $search->pagination->pageSize = 100;
         
         foreach($apply as $attribute=>$fn) {
@@ -233,7 +233,7 @@ class RetsNewsletter extends \yii\db\ActiveRecord
 
     public static function cityOptions()
     {
-        return \common\catalog\Town::mapOptions('short_name');
+        return \models\Town::mapOptions('short_name');
     }
 
     public static function typeOptions()

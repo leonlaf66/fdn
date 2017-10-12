@@ -38,7 +38,7 @@ class SiteApp extends \yii\web\Application
 
     public function getSystemConfig($key, $defValue = null)
     {
-        return \common\core\Configure::get($key, $defValue);
+        return \models\SiteSetting::get($key, $defValue);
     }
 
     public function share($name, $data = null)

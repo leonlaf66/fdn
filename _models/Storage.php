@@ -1,11 +1,11 @@
 <?php
 namespace models;
 
-class YellowPageCity extends ActiveRecord
+class Storage extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'yellow_page_city';
+        return 'storage';
     }
 
     public static function primaryKey()

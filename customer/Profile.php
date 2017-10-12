@@ -3,18 +3,8 @@ namespace common\customer;
 
 use WS;
 
-class Profile extends \yii\db\ActiveRecord
+class Profile extends \models\MemberProfile
 {
-    public static function tableName()
-    {
-        return 'member_profile';
-    }
-
-    public static function primaryKey()
-    {
-        return ['user_id'];
-    }
-
     public function rules()
     {
         return [

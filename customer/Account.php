@@ -3,16 +3,8 @@ namespace common\customer;
 
 use WS;
 
-class Account extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
+class Account extends \models\Member implements \yii\web\IdentityInterface
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'member';
-    }
-
     /**
      * @inheritdoc
      */

@@ -3,32 +3,8 @@ namespace common\estate;
 
 use WS;
 
-class Rets extends \common\core\ActiveRecord
+class Rets extends \models\MlsRets
 {
-    public $json = [];
-
-    public static function tableName()
-    {
-        return 'mls_rets';
-    }
-
-    public static function primaryKey()
-    {
-        return ['list_no'];
-    }
-
-    public function rules()
-    {
-        return [
-            [['json'], 'safe']
-        ];
-    }
-
-    public static function getDb()
-    {
-        return WS::$app->mlsdb;
-    }
-
     public static function propertyTypeNames()
     {
         $t = WS::lang('rets', true);
@@ -69,7 +45,7 @@ class Rets extends \common\core\ActiveRecord
 
     public function title()
     {
-        $cityName = \common\catalog\Town::getMapValue($this->town, 'name');
+        $cityName = \models\Town::getMapValue($this->town, 'name');
         $propTypeName = $this->propTypeName();
 
         $list = [];
@@ -93,7 +69,7 @@ class Rets extends \common\core\ActiveRecord
 
     public function metaTitle()
     {
-        $cityName = \common\catalog\Town::getMapValue($this->town, 'name');
+        $cityName = \models\Town::getMapValue($this->town, 'name');
         $propTypeName = $this->propTypeName();
 
         $cnNums = ['一', '两', '三', '四', '五', '六', '七', '八', '九', '十'];
@@ -177,7 +153,7 @@ class Rets extends \common\core\ActiveRecord
         $tagNames = [];
         
         // 学区房
-        $areaCodes = \common\catalog\SchoolDistrict::allCodes();
+        $areaCodes = \models\SchoolDistrict::allCodes();
         if (in_array($this->town, $areaCodes)) {
             $tagNames[] = tt('School district', '学区房');
         }
@@ -228,17 +204,6 @@ class Rets extends \common\core\ActiveRecord
         return $renders[$listNo];
     }
 
-    public function __get($name)
-    {
-        $value = null;
-        try {
-            $value = parent::__get($name);
-        } catch (\Exception $e) {
-            return $this->getJsonData($name);
-        }
-        return $value;
-    }
-
     public function getPhotos($w = 300, $h = 300)
     {
         $urls = [];
@@ -259,19 +224,6 @@ class Rets extends \common\core\ActiveRecord
     public function getLocation()
     {
         return \common\estate\helpers\Rets::buildLocation($this);
-    }
-
-    public function afterFind()
-    {
-        parent::afterFind();
-
-        $this->json = json_decode($this->json_data);
-        unset($this->json_data);
-    }
-
-    public function getJsonData($name, $def = null)
-    {
-        return isset($this->json->$name) ? $this->json->$name : $def;
     }
 
     public function getTownPolygons()

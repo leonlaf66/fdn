@@ -3,8 +3,6 @@ namespace models;
 
 class ActiveRecord extends \yii\db\ActiveRecord
 {
-    public $
-    
     public $arrayFields = [];
     public $jsonFields = [];
 

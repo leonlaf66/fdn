@@ -1,11 +1,11 @@
 <?php
 namespace models;
 
-class YellowPageCity extends ActiveRecord
+class ApiUser extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'yellow_page_city';
+        return 'api_user';
     }
 
     public static function primaryKey()

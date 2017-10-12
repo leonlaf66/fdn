@@ -1,15 +1,15 @@
 <?php
 namespace models;
 
-class YellowPageCity extends ActiveRecord
+class HouseOffice extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'yellow_page_city';
+        return 'house_info_office';
     }
 
     public static function primaryKey()
     {
-        return ['id'];
+        return ['mls_number'];
     }
 }

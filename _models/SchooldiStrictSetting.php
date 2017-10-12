@@ -1,11 +1,11 @@
 <?php
 namespace models;
 
-class YellowPageCity extends ActiveRecord
+class SchooldiStrictSetting extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'yellow_page_city';
+        return 'schooldistrict_setting';
     }
 
     public static function primaryKey()

@@ -4,7 +4,7 @@ return [
         'title'=>'Name',
         'index'=>false,
         'value'=>function ($val, $rets) {
-            $cityName = \common\catalog\Town::getMapValue($rets->town, 'name');
+            $cityName = \models\Town::getMapValue($rets->town, 'name');
             return \WS::isChinese() ? $cityName.$rets->propTypeName() : $rets->propTypeName().' in '.$cityName;
         }
     ],
@@ -68,7 +68,7 @@ return [
         'title'=>'City',
         'index'=>'town',
         'value'=>function($value){
-            return \common\catalog\Town::getMapValue($value, 'name');
+            return \models\Town::getMapValue($value, 'name');
         }
     ],
     'no_rooms'=>[

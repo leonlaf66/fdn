@@ -1,11 +1,11 @@
 <?php
 namespace models;
 
-class YellowPageCity extends ActiveRecord
+class HouseIndex extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'yellow_page_city';
+        return 'house_index';
     }
 
     public static function primaryKey()
