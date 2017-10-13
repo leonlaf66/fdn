@@ -83,7 +83,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public function getData($key, $defValue=null)
     {
         $value = parent::__get($key);
-        return $value ? $value : $defValue;
+        return !is_null($value) ? $value : $defValue;
     }
 
     public function __call($method, $args) {
