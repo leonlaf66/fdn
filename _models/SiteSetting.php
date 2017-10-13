@@ -21,6 +21,17 @@ class SiteSetting extends ActiveRecord
             $defValue;
     }
 
+    public static function getJson($path, $defValue=null)
+    {
+        if(empty(self::$_data)) {
+            self::$_data = self::_loadAllData();
+        }
+        return isset(self::$_data[$path]) ? 
+            json_decode(self::$_data[$path])
+            :
+            $defValue;
+    }
+
     public static function get($path, $defValue=null)
     {
         return self::getValue($path, $defValue);
