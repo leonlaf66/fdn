@@ -20,6 +20,10 @@ return \yii\helpers\ArrayHelper::merge([
             'charset' => 'utf8',
             'tablePrefix'=>''
         ],
+        'area' => [
+            'class' => '\common\component\Area',
+            'maps' => include(__DIR__ . '/area.maps.php')
+        ],
         'mailer' => [
             'class' => '\common\cms\Mailer',
             'useFileTransport' => false,

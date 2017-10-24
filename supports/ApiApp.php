@@ -8,6 +8,7 @@ class ApiApp extends \yii\web\Application
     public $houseBaseUrl = '';
     public $configuationData = [];
     public $shareItems = [];
+    public $areaMaps = [];
 
     public function bootstrap()
     {

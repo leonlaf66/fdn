@@ -10,6 +10,7 @@ class SiteApp extends \yii\web\Application
     public $translationStatus = false;
     public $configuationData = [];
     public $shareItems = [];
+    public $areaMaps = [];
 
     public function bootstrap()
     {

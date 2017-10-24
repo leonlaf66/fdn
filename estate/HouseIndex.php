@@ -21,7 +21,7 @@ class HouseIndex extends \models\HouseIndex
         }
     }
 
-    public function nearbyHouses($limit=8) {
+    public function nearbyHouses($stateIds=['MA'], $limit=8) {
         $id = $this->id;
         $town = $this->town;
         $price = $this->list_price;
@@ -37,7 +37,8 @@ class HouseIndex extends \models\HouseIndex
         */
         $query = self::find()
             ->addSelect(['*', "abs(list_price - {$price}) as diff_price"])
-            ->where(['town'=>$town, 'prop_type'=>$propTypeId])
+            ->where(['in', 'state', $stateIds])
+            ->andWhere(['town'=>$town, 'prop_type'=>$propTypeId])
             ->orderBy(['diff_price' => 'ASC']);
 
         if (in_array($propTypeId, ['SF', 'CC'])) {
@@ -54,23 +55,25 @@ class HouseIndex extends \models\HouseIndex
         return $result;
     }
 
-    public static function townTotals()
+    public static function townTotals($stateIds = ['MA'])
     {
         $all = (new \yii\db\Query())
             ->select('town, count(*) as total')
             ->from('house_index')
+            ->where(['in', 'state', $stateIds])
             ->groupBy('town')
             ->all();
 
         return ArrayHelper::index($all, 'town', 'total');
     }
 
-    public static function search()
+    public static function search($stateIds = ['MA'])
     {
         $model = new self();
 
         $query = $model->find();
         $query->andWhere(['=', 'is_show', true]);
+        $query->andWhere(['in', 'state', $stateIds]);
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

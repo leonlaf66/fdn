@@ -5,7 +5,7 @@ use yii\data\ActiveDataProvider;
 
 class News extends ActiveRecord
 {
-    public $arrayFields = ['towns'];
+    public $arrayFields = ['area_id'];
 
     public static function tableName()
     {
