@@ -34,15 +34,32 @@ class News extends ActiveRecord
         return parent::afterSave($insert, $changedAttributes);
     }
 
-    public static function search()
+    public static function query($areaId, $typeId = 0)
     {
-        $model = new self();
+        $model = new static();
+
+        $query = $model->find();
+        $query->andWhere('(is_public=true or area_id @> :area_id)', [
+            ':area_id' => '{'.$areaId.'}'
+        ]);
+        $query->andWhere(['status' => 1]);
+        if ($typeId) {
+            $query->andWhere(['type_id' => intval($typeId)]);
+        }
+
+        return $query;
+    }
+
+    public static function search($areaId, $typeId = 0)
+    {
+        $query = static::query($areaId, $typeId);
         
         return new ActiveDataProvider([
-            'query' => $model->find(),
+            'query' => $query,
             'pagination' => [
-                'pagesize' => 15
-             ]
+                'pagesize' => 10
+            ],
+            'sort'=> ['defaultOrder' => ['id'=>SORT_DESC]]
         ]);
     }
 }

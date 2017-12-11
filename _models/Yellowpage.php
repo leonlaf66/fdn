@@ -53,12 +53,22 @@ class YellowPage extends ActiveRecord
             ])->execute();
     }
 
-    public static function search()
+    public static function query($areaId)
     {
         $model = new self();
+
+        $query = $model->find();
+        $query->where(['area_id' => $areaId]);
+
+        return $query;
+    }
+
+    public static function search($areaId)
+    {
+        $query = self::query($areaId);
         
         return new ActiveDataProvider([
-            'query' => $model->find(),
+            'query' => $query,
             'pagination' => [
                 'pagesize' => 15
              ]

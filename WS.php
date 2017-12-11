@@ -50,9 +50,13 @@ class WS extends Yii
         return \WS::$app->language === 'zh-CN';
     }
 
-    public static function getStaticData($name)
+    public static function getStaticData($name, $defValue = '')
     {
-        return include(__DIR__ . "/data/{$name}.php");
+        $file = __DIR__ . "/data/{$name}.php";
+
+        if (file_exists($file))
+            return include($file);
+        return $defValue;
     }
 
     public static function share($key, $value = null)

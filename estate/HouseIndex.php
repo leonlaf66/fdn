@@ -69,6 +69,9 @@ class HouseIndex extends \models\HouseIndex
 
     public static function search($stateIds = ['MA'])
     {
+        if (is_null($stateIds)) $stateIds = ['MA'];
+        if (is_string($stateIds)) $stateIds = [$stateIds];
+
         $model = new self();
 
         $query = $model->find();

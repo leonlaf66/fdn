@@ -31,7 +31,7 @@ function tt()
 
     if (\Yii::$app->language === 'en-US') 
         return $texts[0];
-    elseif (count($texts) === 1 || $texts[1] === '' || is_null($texts[1]))
+    elseif (count($texts) === 1 || is_null($texts[1]))
         return $texts[0];
     else
         return count($texts) > 1 ? $texts[1] : $texts[1];

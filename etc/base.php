@@ -22,7 +22,7 @@ return \yii\helpers\ArrayHelper::merge([
         ],
         'area' => [
             'class' => '\common\component\Area',
-            'maps' => include(__DIR__ . '/area.maps.php')
+            'maps' => include(__DIR__ . '/area.maps.php'),
         ],
         'mailer' => [
             'class' => '\common\cms\Mailer',

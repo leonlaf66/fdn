@@ -27,6 +27,17 @@ class MemberHouseTour extends ActiveRecord
         ];
     }
 
+    public function getRets($listNo=null)
+    {
+        if(! $listNo) $listNo = $this->list_no;
+
+        if ($this->area_id === 'ma') {
+            return \common\estate\Rets::findOne($listNo);
+        } else {
+            return \common\listhub\estate\House::findOne($listNo);
+        }
+    }
+
     public function confirm()
     {
         $this->status = self::STATUS_CONFIRMED;

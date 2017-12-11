@@ -54,7 +54,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
             }
 
             foreach($this->jsonFields as $jsonField) {
-                if ($this->$jsonField) {
+                if ($this->$jsonField && is_string($this->$jsonField)) {
                     $this->$jsonField = json_decode($this->$jsonField);
                 }
             }

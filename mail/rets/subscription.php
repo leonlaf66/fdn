@@ -1,5 +1,5 @@
 <?php
-  $baseUrl = \WS::$app->params['frontendBaseUrl'];
+  $domain = \WS::$app->params['domain'];
 
   $styles = [
     'container' => function () {
@@ -41,7 +41,8 @@
   </div>
   <div style="<?php ($styles['items-box'])()?>">
     <?php foreach($retsItems as $rets):?>
-        <a href="<?php echo $baseUrl.'/'.$rets->getUrl()?>" target="_blank" style="<?php ($styles['item'])()?>">
+        <?php if($rets instanceof \common\estate\Rets):?>
+        <a href="<?php echo 'http://ma'.$domain.'/'.$rets->getUrl()?>" target="_blank" style="<?php ($styles['item'])()?>">
             <?php
               $_render = $rets->render();
             ?>
@@ -53,6 +54,17 @@
             </div>
             <div style="<?php ($styles['title'])()?>"><?php echo $_render->get('title')['value']?></div>
         </a>
+        <?php else:?>
+            <a href="<?php echo 'http://'.strtolower($rets->state).$domain.'/'.$rets->getUrl()?>" target="_blank" style="<?php ($styles['item'])()?>">
+                <div style="<?php ($styles['image'])($rets->getPhoto(0)['url'])?>">
+                    <div style="<?php ($styles['item-info'])()?>">
+                        <div style="<?php ($styles['price'])()?>"><?php echo $rets->getFieldData('list_price')['formatedValue']?></div>
+                        <div style="<?php ($styles['square'])()?>"><?php echo $rets->getFieldData('square_feet')['formatedValue']?></div>
+                    </div>
+                </div>
+                <div style="<?php ($styles['title'])()?>"><?php echo $rets->getFieldData('title')['value']?></div>
+            </a>
+        <?php endif?>
     <?php endforeach?>
   </div>
 </div>

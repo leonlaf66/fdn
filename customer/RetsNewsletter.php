@@ -79,7 +79,7 @@ class RetsNewsletter extends \models\MemberHouseNewsletter
     public function getNamedValue($attribute)
     {
         $typeOptions = self::typeOptions();
-        $cityOptions = self::cityOptions();
+        $cityOptions = self::cityOptions($this->area_id);
         $cycleOptions = self::cycleOptions();
 
         switch ($attribute) {
@@ -148,9 +148,13 @@ class RetsNewsletter extends \models\MemberHouseNewsletter
                     $query->andWhere(['prop_type' => $value]);
                 }
             },
-            'city'=>function($cityCode, $query) {
+            'city'=>function($cityCode, $query, $model) {
                 if($cityCode !== '') {
-                    $query->andWhere(['town' => $cityCode]);
+                    if ($model->area_id === 'ma') {
+                        $query->andWhere(['town' => $cityCode]);
+                    } else {
+                        $query->andWhere(['city_id' => $cityCode]);
+                    }
                 }
             },
             'price_range'=>function($value, $query) {
@@ -172,12 +176,17 @@ class RetsNewsletter extends \models\MemberHouseNewsletter
             }
         ];
 
-        $search = \common\estate\HouseIndex::search();
+        $search = null;
+        if ($this->area_id === 'ma') {
+            $search = \common\estate\HouseIndex::search();
+        } else {
+            $search = \common\listhub\estate\House::search(strtoupper($this->area_id));
+        }
         $search->pagination->pageSize = 100;
         
         foreach($apply as $attribute=>$fn) {
             if($value = $this->$attribute) {
-                $fn($value, $search->query);
+                $fn($value, $search->query, $this);
             }
         }
 
@@ -187,7 +196,11 @@ class RetsNewsletter extends \models\MemberHouseNewsletter
 
         $search->query->andWhere(['between', 'list_date', $startTime, $endTime]);
 
-        return \common\estate\helpers\Rets::result($search);
+        if ($this->area_id === 'ma') {
+            return \common\estate\helpers\Rets::result($search);
+        }
+
+        return $search->getModels();
     }
 
     public function beforeSave($insert)
@@ -231,12 +244,15 @@ class RetsNewsletter extends \models\MemberHouseNewsletter
         return parent::afterFind();
     }
 
-    public static function cityOptions()
+    public static function cityOptions($area_id = 'ma')
     {
+        if ($area_id !== 'ma') {
+            return \models\City::mapOptions(strtoupper($area_id), 'id');
+        }
         return \models\Town::mapOptions('short_name');
     }
 
-    public static function typeOptions()
+    public static function typeOptions($area_id = 'ma')
     {
         return \common\estate\Rets::propertyTypes();
     }

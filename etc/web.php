@@ -1,5 +1,5 @@
 <?php
-$config = \yii\helpers\ArrayHelper::merge(include(__DIR__.'/base.php'), [
+return [
     'components' => [
         'session' => [
             'useCookies' => true,
@@ -23,6 +23,4 @@ $config = \yii\helpers\ArrayHelper::merge(include(__DIR__.'/base.php'), [
             'appSecret' => ''
         ]
     ]
-], include(__DIR__.'/web.local.php'));
-
-return $config;
+];

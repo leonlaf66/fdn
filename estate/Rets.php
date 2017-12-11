@@ -189,7 +189,7 @@ class Rets extends \models\MlsRets
     public function getUrl()
     {
         $type = $this->prop_type === 'RN' ? 'lease' : 'purchase';
-        return "house/{$type}/{$this->list_no}/";
+        return "{$type}/{$this->list_no}/";
     }
 
     public function render()
@@ -249,7 +249,8 @@ class Rets extends \models\MlsRets
 
     public function isLiked()
     {
-        return WS::$app->db->createCommand('select id from house_member_favority where list_no=:id and user_id=:uid', [
+        return WS::$app->db->createCommand('select id from house_member_favority where area_id=:area_id and list_no=:id and user_id=:uid', [
+            ':area_id' => 'ma',
             ':id' => $this->list_no,
             ':uid' => WS::$app->user->id
         ])->queryScalar();
@@ -259,6 +260,17 @@ class Rets extends \models\MlsRets
     {
         $instanceClassName = 'common\\estate\\rets\\'.$this->prop_type;
         return new $instanceClassName($this);
+    }
+
+    public function getViewableEntity()
+    {
+        $obj = new \stdClass();
+        $obj->list_no = $this->list_no;
+        $obj->title = $this->title();
+        $obj->photo_url = $this->getPhoto(0, 300, 300);
+        $obj->list_price = $this->render()->get('list_price');
+        $obj->status_name = $this->statusName();
+        return $obj;
     }
 
     public function toArray(array $fields = [], array $expand = [], $recursive = true)

@@ -3,9 +3,22 @@ namespace models;
 
 class MemberHouseFavority extends ActiveRecord
 {
+    public $jsonFields = ['data'];
+
     public static function tableName()
     {
         return 'house_member_favority';
+    }
+
+    public function afterFind()
+    {
+        if ($this->areaId === 'ma') {
+            $this->data = \common\estate\Rets::findOne($this->list_no)->getViewableEntity();
+        } else {
+            $this->data = \common\listhub\estate\House::findOne($this->list_no)->getViewableEntity();
+        }
+
+        return parent::afterFind();
     }
 
     public static function findByUserId($userId)
@@ -16,7 +29,11 @@ class MemberHouseFavority extends ActiveRecord
     public function getRets($listNo=null)
     {
         if(! $listNo) $listNo = $this->list_no;
-        return \common\estate\Rets::findOne($listNo);
+        if ($this->area_id === 'ma') {
+            return \common\estate\Rets::findOne($listNo);
+        } else {
+            return \common\listhub\estate\House::findOne($listNo);
+        }
     }
 
     public function getUser()
@@ -39,7 +56,15 @@ class MemberHouseFavority extends ActiveRecord
             return null;
         }
 
-        $rets = \common\estate\Rets::findOne($listNo);
+        $areaId = \WS::$app->area->id;
+
+        $rets = null;
+        if ($areaId === 'ma') {
+            $rets = \common\estate\Rets::findOne($listNo);
+        } else {
+            $rets = \common\listhub\estate\House::findOne($listNo);
+        }
+
         if(! $rets) {
             return null;
         }
@@ -49,6 +74,7 @@ class MemberHouseFavority extends ActiveRecord
         $m->list_no = $listNo;
         $m->property_type = $rets->prop_type;
         $m->created_at = date('Y-m-d H:i:s');
+        $m->area_id = $areaId;
 
         return $m->save();
     }

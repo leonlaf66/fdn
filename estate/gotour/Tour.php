@@ -28,11 +28,17 @@ class Tour extends \models\MemberHouseTour
         return '';
     }
 
-    public function getRets()
+    public function getRets($listNo = null)
     {
+        if (! $this->list_no) $this->list_no = $listNo;
+
         static $retsArray = [];
         if(! isset($retsArray[$this->list_no])) {
-            $retsArray[$this->list_no] = \common\estate\Rets::findOne($this->list_no);
+            if ($this->area_id === 'ma') {
+                $retsArray[$this->list_no] = \common\estate\Rets::findOne($this->list_no);
+            } else {
+                $retsArray[$this->list_no] = \common\listhub\estate\House::findOne($this->list_no);
+            }
         }
         return $retsArray[$this->list_no];
     }

@@ -35,9 +35,9 @@ class ApiApp extends \yii\web\Application
         }
     }
 
-    public function getSystemConfig($key, $defValue = null)
+    public function getSystemConfig($key)
     {
-        return \models\SiteSetting::get($key, $defValue);
+        return \models\SiteSetting::get($key, $this->area->id);
     }
 
     public function share($name, $data = null)

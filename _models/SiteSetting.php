@@ -10,38 +10,42 @@ class SiteSetting extends ActiveRecord
         return 'site_setting';
     }
 
-    public static function getValue($path, $defValue=null)
+    public static function getValue($path, $areaId = null)
     {
+        $options = \WS::$app->configuationData[$path] ?? [];
+
         if(empty(self::$_data)) {
-            self::$_data = self::_loadAllData();
+            self::$_data = self::_loadAllData($areaId);
         }
         return isset(self::$_data[$path]) ? 
             self::$_data[$path]
             :
-            $defValue;
+            $options['default'] ?? null;
     }
 
-    public static function getJson($path, $defValue=null)
+    public static function getJson($path, $areaId = null)
     {
+        $options = \WS::$app->configuationData[$path];
+
         if(empty(self::$_data)) {
-            self::$_data = self::_loadAllData();
+            self::$_data = self::_loadAllData($areaId);
         }
         return isset(self::$_data[$path]) ? 
             json_decode(self::$_data[$path])
             :
-            $defValue;
+            $options['default'] ?? null;
     }
 
-    public static function get($path, $defValue=null)
+    public static function get($path, $areaId = null)
     {
-        return self::getValue($path, $defValue);
+        return self::getValue($path, $areaId);
     }
 
-    protected static function _loadAllData()
+    protected static function _loadAllData($areaId = null)
     {
         $data = [];
 
-        $items = self::find()->all();
+        $items = self::find()->where('site_id=:area_id or site_id is null', [':area_id' => $areaId])->all();
         foreach($items as $item) {
             $data[$item->path] = $item->value;
         }
