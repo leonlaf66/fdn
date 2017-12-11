@@ -6,7 +6,9 @@ class House extends \models\listhub\HouseIndex
     public function title()
     {
         $cityName = $this->getXmlElement()->one('Address/City')->val();
-        //$cityName = tt($this->city->name, $this->city->name_cn);
+        if ($city = $this->city) {
+            $cityName = tt($this->city->name, $this->city->name_cn);
+        }
         $propTypeName = $this->propTypeName();
 
         $list = [];
