@@ -3,6 +3,7 @@ namespace models;
 
 class MemberHouseFavority extends ActiveRecord
 {
+    public $data = [];
     public $jsonFields = ['data'];
 
     public static function tableName()
