@@ -23,6 +23,19 @@ class SiteSetting extends ActiveRecord
             $options['default'] ?? null;
     }
 
+    public static function getJson($path, $areaId = null)
+    {
+        $options = \WS::$app->configuationData[$path];
+
+        if(empty(self::$_data)) {
+            self::$_data = self::_loadAllData($areaId);
+        }
+        return isset(self::$_data[$path]) ?
+            json_decode(self::$_data[$path])
+            :
+            $options['default'] ?? null;
+    }
+
     public static function get($path, $areaId = null)
     {
         return self::getValue($path, $areaId);

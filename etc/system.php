@@ -15,4 +15,15 @@ return [
         'default' => [],
         'private' => true
     ],
+    /*news*/
+    'news.banner.top' => [
+        'type' => 'NewsBannerTop',
+        'default' => [],
+        'private' => true
+    ],
+    'app.news.banner.top' => [
+        'type' => 'AppNewsBanner',
+        'default' => [],
+        'private' => true
+    ]
 ];
