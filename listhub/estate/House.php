@@ -234,7 +234,7 @@ class House extends \models\listhub\HouseIndex
             unset($data['suffix']);
             $data['value'] = $data['formatedValue'] = $opts['emptyDisplayValue'];
         } else {
-            if (isset($opts['lang'])) {
+            if (\WS::$app->language === 'zh-CN' && isset($opts['lang'])) {
                 $langs = \common\listhub\estate\References::getLangs($opts['lang']);
                 if (isset($langs[$data['value']]) && $langs[$data['value']] !== '') {
                     $data['value'] = $langs[$data['value']];
