@@ -53,10 +53,8 @@ return [
         'title'=>'Price',
         'index'=>'list_price',
         'type'=>'float',
-        'prefix'=>'$',
-        'format'=>function($value) {
-            return number_format($value, 0);
-        }
+        'prefix'=>tt('$', ''),
+        'format'=>'price',
     ],
     'county'=>[
         'title'=>'County',
