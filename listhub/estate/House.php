@@ -292,6 +292,7 @@ class House extends \models\listhub\HouseIndex
             if(isset($group->layout)) $arrGroup['layout'] = (string)($group->layout);
 
             $items = $group->xpath('items');
+            $fieldCount = 0;
             foreach($items[0] as $item) {
                 $name = $item->getName();
                 $opts = (array)$item;
@@ -305,10 +306,15 @@ class House extends \models\listhub\HouseIndex
                     unset($opts['zh-CN']);
                 }
 
-                $arrGroup['items'][$name] = $this->getFieldData($name, $opts);
+                $data = $this->getFieldData($name, $opts);
+                if (!empty($data['rawValue'])) {
+                    $arrGroup['items'][$name] = $this->getFieldData($name, $opts);
+                    $fieldCount ++;
+                }
             }
 
-            $arrGroups[] = $arrGroup;
+            if ($fieldCount > 0)
+                $arrGroups[] = $arrGroup;
         }
 
         return $arrGroups;
