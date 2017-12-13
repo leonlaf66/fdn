@@ -32,8 +32,6 @@ class References
     public static function getLangs($code)
     {
         static $cache = [];
-        
-        $code = strtolower($code);
 
         if (! isset($cache[$code])) {
             $langFile = __DIR__."/etc/langs/values/{$code}.php";

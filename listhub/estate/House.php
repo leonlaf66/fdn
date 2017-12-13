@@ -234,6 +234,13 @@ class House extends \models\listhub\HouseIndex
             unset($data['suffix']);
             $data['value'] = $data['formatedValue'] = $opts['emptyDisplayValue'];
         } else {
+            if (isset($opts['lang'])) {
+                $langs = \common\listhub\estate\References::getLangs($opts['lang']);
+                if (isset($langs[$data['value']]) && $langs[$data['value']] !== '') {
+                    $data['value'] = $langs[$data['value']];
+                }
+            }
+
             $formatedVals = [];
             foreach (['prefix', 'value', 'suffix'] as $key) {
                 if (isset($data[$key]) && is_string($data[$key])) $formatedVals[] = $data[$key];
