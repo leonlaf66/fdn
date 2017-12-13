@@ -254,14 +254,16 @@ class House extends \models\listhub\HouseIndex
     {
         if (empty($this->groupedSchoolNames)) {
             $this->groupedSchoolNames = ['Elementary' => [], 'Middle' => [], 'High' => []];
-            $schools = $this->getXmlElement('Location/Community/School');
+            $schools = $this->getXmlElement()->xpath('Location/Community/Schools/School');
+
             foreach ($schools as $school) {
                 $catName = $school->one('SchoolCategory')->val();
                 if ($catName === 'Primary') $catName = 'Elementary';
 
                 if (in_array($catName, ['Elementary', 'Middle', 'High'])) {
-                    if (! isset($this->groupedSchoolNames[$catName])) $this->groupedSchoolNames[$catName] = [];
-                    $this->groupedSchoolNames[$catName][] = $school->one('Name')->val();
+                    if ($name = $school->one('Name')->val()) {
+                        $this->groupedSchoolNames[$catName][] = $name;
+                    }
                 }
             }
         }
