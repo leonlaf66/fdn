@@ -40,7 +40,8 @@ class FieldRender
                 if (intval($data['value']) < 10000) {
                     $data = array_merge($data, [
                         'value' => number_format($data['value'], 0),
-                        'prefix' => '$'
+                        'prefix' => tt('$', ''),
+                        'suffix' => ''
                     ]);
                     break;
                 }

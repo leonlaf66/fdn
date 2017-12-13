@@ -79,5 +79,21 @@ return [
             return intval((time() - strtotime($d->list_date)) / 86400);
         },
         'emptyDisplayValue' => null
+    ],
+    /*字段增强*/
+    'elementary_school_names' => [
+        'render' => function ($d) {
+            return implode(',', $d->getGroupedSchoolNames()['Elementary']);
+        }
+    ],
+    'middle_school_names' => [
+        'render' => function ($d) {
+            return implode(',', $d->getGroupedSchoolNames()['Middle']);
+        }
+    ],
+    'high_school_names' => [
+        'render' => function ($d) {
+            return implode(',', $d->getGroupedSchoolNames()['High']);
+        }
     ]
 ];

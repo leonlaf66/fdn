@@ -3,6 +3,21 @@ namespace common\listhub\estate;
 
 class House extends \models\listhub\HouseIndex
 {
+    protected $_cacheData = [];
+    public $groupedSchoolNames = [];
+
+    public function getCache($key, $defValue = null)
+    {
+        return $this->_cacheData[$key] ?? $defValue;
+    }
+
+    public function setCache($key, $data)
+    {
+        return $this->_cacheData[$key] = $data;
+
+        return $this;
+    }
+
     public function title()
     {
         $cityName = $this->getXmlElement()->one('Address/City')->val();
@@ -233,6 +248,24 @@ class House extends \models\listhub\HouseIndex
     {
         $type = $this->prop_type === 'RN' ? 'lease' : 'purchase';
         return "{$type}/{$this->id}/";
+    }
+
+    public function getGroupedSchoolNames()
+    {
+        if (empty($this->groupedSchoolNames)) {
+            $this->groupedSchoolNames = ['Elementary' => [], 'Middle' => [], 'High' => []];
+            $schools = $this->getXmlElement('Location/Community/School');
+            foreach ($schools as $school) {
+                $catName = $school->one('SchoolCategory')->val();
+                if ($catName === 'Primary') $catName = 'Elementary';
+
+                if (in_array($catName, ['Elementary', 'Middle', 'High'])) {
+                    if (! isset($this->groupedSchoolNames[$catName])) $this->groupedSchoolNames[$catName] = [];
+                    $this->groupedSchoolNames[$catName][] = $school->one('Name')->val();
+                }
+            }
+        }
+        return $this->groupedSchoolNames;
     }
 
     public function getDetail()
