@@ -41,7 +41,7 @@ class FieldRender
                     $data = array_merge($data, [
                         'value' => number_format($data['value'], 0),
                         'prefix' => tt('$', ''),
-                        'suffix' => ''
+                        'suffix' => tt('', '美元')
                     ]);
                     break;
                 }
