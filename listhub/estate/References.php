@@ -34,7 +34,7 @@ class References
         static $cache = [];
 
         if (! isset($cache[$code])) {
-            $langFile = __DIR__."/etc/langs/values/{$code}.php";
+            $langFile = __DIR__."/etc/langs/enums/{$code}.php";
             if (file_exists($langFile)) {
                 $cache[$code] = include $langFile;
             } else {
