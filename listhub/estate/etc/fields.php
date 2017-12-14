@@ -98,6 +98,7 @@ return [
     ],
     'expenses' => [
         'lang' => 'ExpenseType',
+        'format' => 'dict',
         'render' => function ($d) {
             $values = [];
             $expenses = $d->getXmlElement()->xpath('Expenses/Expense');
@@ -110,9 +111,21 @@ return [
                         }
                     }
 
-                    $values[] = $catName;
+                    $money = $expense->one('ExpenseValue')->val();
+                    if (\WS::$app->language === 'zh-CN') {
+                        if ($money > 10000) {
+                            $money = number_format($money / 10000.0, 2).'万美元';
+                        } else {
+                            $money = number_format($money, 0).'美元';
+                        }
+                    } else {
+                        $money = '$'.number_format($money);
+                    }
+
+                    $values[$catName] = $money;
                 }
             }
+
             return $values;
         }
     ]
