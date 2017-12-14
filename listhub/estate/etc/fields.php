@@ -95,5 +95,17 @@ return [
         'render' => function ($d) {
             return implode(',', $d->getGroupedSchoolNames()['High']);
         }
+    ],
+    'expenses' => [
+        'render' => function ($d) {
+            $values = [];
+            $expenses = $d->getXmlElement()->xpath('Expenses/Expense');
+            foreach ($expenses as $expense) {
+                if ($catName = $expense->one('ExpenseCategory')->val()) {
+                    $values = $catName;
+                }
+            }
+            return $values;
+        }
     ]
 ];
