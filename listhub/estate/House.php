@@ -297,7 +297,7 @@ class House extends \models\listhub\HouseIndex
         $groups = $xml->xpath('/groups/group');
         foreach($groups as $group) {
             $arrGroup = [
-                'title' => (string)$group->title,
+                'title' => tt((string)$group->title, (string)$group->title_cn),
                 'items' => []
             ];
 
