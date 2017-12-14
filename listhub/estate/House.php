@@ -186,6 +186,11 @@ class House extends \models\listhub\HouseIndex
         }
         $opts = array_merge(['emptyDisplayValue' => tt('Unknown', '未提供')], $opts);
 
+        if (\WS::$app->language === 'zh-CN' && isset($opts['zh-CN'])) {
+            $opts = array_merge($opts, $opts['zh-CN']);
+            unset($opts['zh-CN']);
+        }
+
         $data = [
             'id' => $name,
             'title' => '',
@@ -308,7 +313,7 @@ class House extends \models\listhub\HouseIndex
                     $opts['values'] = (array)$opts['values'];
                 }
 
-                if (isset($opts['zh-CN'])) {
+                if (\WS::$app->language === 'zh-CN' && isset($opts['zh-CN'])) {
                     $opts = array_merge($opts, (array)$opts['zh-CN']);
                     unset($opts['zh-CN']);
                 }
