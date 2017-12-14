@@ -97,12 +97,20 @@ return [
         }
     ],
     'expenses' => [
+        'lang' => 'ExpenseType',
         'render' => function ($d) {
             $values = [];
             $expenses = $d->getXmlElement()->xpath('Expenses/Expense');
             foreach ($expenses as $expense) {
                 if ($catName = $expense->one('ExpenseCategory')->val()) {
-                    $values = $catName;
+                    if (\WS::$app->language === 'zh-CN') {
+                        $langs = \common\listhub\estate\References::getLangs('ExpenseType');
+                        if (isset($langs[$catName]) && $langs[$catName] !== '') {
+                            $catName = $langs[$catName];
+                        }
+                    }
+
+                    $values[] = $catName;
                 }
             }
             return $values;
