@@ -96,6 +96,12 @@ return [
             return implode(',', $d->getGroupedSchoolNames()['High']);
         }
     ],
+    'taxes' => [
+        'title' => tt('Taxes', '房产税'),
+        'render' => function ($d) {
+            return $d->getXmlElement()->one('Taxes/Tax/Amount')->val();
+        }
+    ],
     'expenses' => [
         'lang' => 'ExpenseType',
         'format' => 'dict',
