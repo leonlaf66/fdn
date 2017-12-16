@@ -76,7 +76,7 @@ class HouseIndex extends \models\HouseIndex
 
         $query = $model->find();
         $query->andWhere(['=', 'is_show', true]);
-        $query->andWhere(['in', 'state', $stateIds]);
+        //$query->andWhere(['in', 'state', $stateIds]);
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
