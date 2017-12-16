@@ -29,7 +29,7 @@ class Rets extends \models\ActiveRecord
     {
         $clearTags = [' xmlns="http://rets.org/xsd/Syndication/2012-03" xmlns:commons="http://rets.org/xsd/RETSCommons"', 'commons:'];
         foreach ($clearTags as $clearTag) {
-            if (false === strpos($xml, $clearTag)) {
+            if (false !== strpos($xml, $clearTag)) {
                 $xml = str_replace($clearTag, '', $xml);
             }
         }
