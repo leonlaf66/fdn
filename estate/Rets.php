@@ -148,6 +148,39 @@ class Rets extends \models\MlsRets
         return $days.' days on market';
     }
 
+    public function getTagsCode()
+    {
+        $tags = '00000';
+
+        // 学区房
+        $areaCodes = \models\SchoolDistrict::allCodes();
+        if (in_array($this->town, $areaCodes)) {
+            $tags[0] = '1';
+        }
+
+        // 卧室
+        if (intval($this->no_bedrooms) >= 3) {
+            $tags[1] = '1';
+        }
+
+        // 车位
+        if (intval($this->parking_spaces) >= 2) {
+            $tags[2] = '1';
+        }
+
+        // 车库
+        if (intval($this->garage_spaces) > 0) {
+            $tags[3] = '1';
+        }
+
+        // 高级豪宅
+        if (in_array($this->prop_type, ['CC', 'SF']) && intval($this->list_price) > 1000000) {
+            $tags[4] = '1';
+        }
+
+        return $tags;
+    }
+
     public function getTags()
     {
         $tagNames = [];
