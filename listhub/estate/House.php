@@ -418,6 +418,7 @@ class House extends \models\listhub\HouseIndex
 
         $query = $model->find();
         $query->andWhere(['=', 'state', $stateId]);
+        $query->andWhere(['is_show' => true]);
         $query->andWhere('list_price > 0');
 
         $dataProvider = new \yii\data\ActiveDataProvider([

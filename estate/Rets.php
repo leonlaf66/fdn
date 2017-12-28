@@ -51,7 +51,9 @@ class Rets extends \models\MlsRets
         $list = [];
         if (\WS::$app->language === 'zh-CN') {
             $list[] = $cityName.$propTypeName;
-            $list[] = intval($this->no_bedrooms).'室'.($this->no_full_baths + $this->no_half_baths).'卫';
+            if (!empty($this->no_bedrooms)) {
+                $list[] = intval($this->no_bedrooms).'室'.($this->no_full_baths + $this->no_half_baths).'卫';
+            }
 
             if (intval($this->garage_spaces) > 0) {
                 $list[] = '带车库';
