@@ -60,6 +60,10 @@ return [
         'title' => tt('Square Feet', '面积'),
         'format' => 'sq.ft'
     ],
+    'lot_size' => [
+        'title' => tt('Lot Size', '面积'),
+        'format' => 'sq.ft'
+    ],
     'list_price' => [
         'title' => tt('Price', '价格'),
         'format' => 'money'

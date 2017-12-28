@@ -18,6 +18,11 @@ class House extends \models\listhub\HouseIndex
         return $this;
     }
 
+    public function isLand()
+    {
+        return $this->prop_type === 'LD';
+    }
+
     public function title()
     {
         $cityName = $this->getXmlElement()->one('Address/City')->val();
@@ -29,16 +34,20 @@ class House extends \models\listhub\HouseIndex
         $list = [];
         if (\WS::$app->language === 'zh-CN') {
             $list[] = $cityName.$propTypeName;
-            $list[] = intval($this->no_bedrooms).'室'.($this->no_bathrooms).'卫';
-
-            if (intval($this->parking_spaces) > 0) {
-                $list[] = '带车位';
+            if (!$this->isLand()) {
+                $list[] = intval($this->no_bedrooms).'室'.($this->no_bathrooms).'卫';
+                if (intval($this->parking_spaces) > 0) {
+                    $list[] = '带车位';
+                }
             }
+
             return implode(' ', $list);
         }
 
         $list[] = $cityName.' '.strtolower($propTypeName);
-        $list[] = intval($this->no_bedrooms).' bed '.$this->no_bathrooms.' bath';
+        if (!$this->isLand()) {
+            $list[] = intval($this->no_bedrooms) . ' bed ' . $this->no_bathrooms . ' bath';
+        }
 
         return implode(', ', $list);
     }
@@ -53,33 +62,36 @@ class House extends \models\listhub\HouseIndex
         $list = [];
         if (\WS::$app->language === 'zh-CN') {
             $list[] = $cityName.$propTypeName;
-            $cnBadrooms = intval($this->no_bedrooms);
-            if ($cnBadrooms > 1 && $cnBadrooms < 10) {
-                $cnBadrooms = $cnNums[$cnBadrooms - 1];
-            }
-            $cnBath = $this->no_bathrooms;
-            if ($cnBath > 1 && $cnBath < 10) {
-                $cnBath = $cnNums[$cnBath - 1];
-            }
+            if (!$this->isLand()) {
+                $cnBadrooms = intval($this->no_bedrooms);
+                if ($cnBadrooms > 1 && $cnBadrooms < 10) {
+                    $cnBadrooms = $cnNums[$cnBadrooms - 1];
+                }
+                $cnBath = $this->no_bathrooms;
+                if ($cnBath > 1 && $cnBath < 10) {
+                    $cnBath = $cnNums[$cnBath - 1];
+                }
 
-            $list[] = $cnBadrooms.'室'.$cnBath.'卫 '.intval($this->no_bedrooms).'室'.$this->no_bathrooms.'卫';
+                $list[] = $cnBadrooms . '室' . $cnBath . '卫 ' . intval($this->no_bedrooms) . '室' . $this->no_bathrooms . '卫';
 
-            if (intval($this->parking_spaces) > 0) {
-                $list[] = '带车位';
+                if (intval($this->parking_spaces) > 0) {
+                    $list[] = '带车位';
+                }
             }
             return implode(' ', $list);
         }
 
         $list[] = $cityName.' '.strtolower($propTypeName);
+        if (!$this->isLand()) {
+            $bedroom = intval($this->no_bedrooms) . ' ' . (intval($this->no_bedrooms) > 1 ? 'bedrooms' : 'bedroom');
+            $bath = $this->no_bathrooms;
+            $bath = $bath . ' ' . ($bath > 1 ? 'baths' : 'bath');
 
-        $bedroom = intval($this->no_bedrooms).' '.(intval($this->no_bedrooms) > 1 ? 'bedrooms' : 'bedroom');
-        $bath = $this->no_bathrooms;
-        $bath = $bath.' '.($bath > 1 ? 'baths' : 'bath');
+            $list[] = $bedroom . ' ' . $bath;
 
-        $list[] = $bedroom.' '.$bath;
-
-        if (intval($this->parking_spaces) > 0) {
-            $list[] = 'has parking';
+            if (intval($this->parking_spaces) > 0) {
+                $list[] = 'has parking';
+            }
         }
 
         return implode(', ', $list);
@@ -148,7 +160,7 @@ class House extends \models\listhub\HouseIndex
         if ($this->ant_sold_date) {
             return tt('Sold', '已销售');
         }
-        return tt('Active', '新房源');
+        return tt('Active', '销售中');
     }
 
     public function getTagsCode()

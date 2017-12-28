@@ -43,6 +43,11 @@ class Rets extends \models\MlsRets
         return $ids[$this->prop_type] ?? null;
     }
 
+    public function isLand()
+    {
+        return $this->prop_type === 'LD';
+    }
+
     public function title()
     {
         $cityName = \models\Town::getMapValue($this->town, 'name');
@@ -51,20 +56,24 @@ class Rets extends \models\MlsRets
         $list = [];
         if (\WS::$app->language === 'zh-CN') {
             $list[] = $cityName.$propTypeName;
-            if (!empty($this->no_bedrooms)) {
-                $list[] = intval($this->no_bedrooms).'室'.($this->no_full_baths + $this->no_half_baths).'卫';
-            }
+            if ($this->prop_type !== 'LD') {
+                if (!empty($this->no_bedrooms)) {
+                    $list[] = intval($this->no_bedrooms).'室'.($this->no_full_baths + $this->no_half_baths).'卫';
+                }
 
-            if (intval($this->garage_spaces) > 0) {
-                $list[] = '带车库';
-            } elseif (intval($this->parking_spaces) > 0) {
-                $list[] = '带车位';
+                if (intval($this->garage_spaces) > 0) {
+                    $list[] = '带车库';
+                } elseif (intval($this->parking_spaces) > 0) {
+                    $list[] = '带车位';
+                }
             }
             return implode(' ', $list);
         }
 
         $list[] = $cityName.' '.strtolower($propTypeName);
-        $list[] = intval($this->no_bedrooms).' bed '.($this->no_full_baths + $this->no_half_baths).' bath';
+        if ($this->prop_type !== 'LD') {
+            $list[] = intval($this->no_bedrooms) . ' bed ' . ($this->no_full_baths + $this->no_half_baths) . ' bath';
+        }
 
         return implode(', ', $list);
     }
@@ -79,37 +88,42 @@ class Rets extends \models\MlsRets
         $list = [];
         if (\WS::$app->language === 'zh-CN') {
             $list[] = $cityName.$propTypeName;
-            $cnBadrooms = intval($this->no_bedrooms);
-            if ($cnBadrooms > 1 && $cnBadrooms < 10) {
-                $cnBadrooms = $cnNums[$cnBadrooms - 1];
-            }
-            $cnBath = $this->no_full_baths + $this->no_half_baths;
-            if ($cnBath > 1 && $cnBath < 10) {
-                $cnBath = $cnNums[$cnBath - 1];
+            if ($this->prop_tyoe !== 'LD') {
+                $cnBadrooms = intval($this->no_bedrooms);
+                if ($cnBadrooms > 1 && $cnBadrooms < 10) {
+                    $cnBadrooms = $cnNums[$cnBadrooms - 1];
+                }
+                $cnBath = $this->no_full_baths + $this->no_half_baths;
+                if ($cnBath > 1 && $cnBath < 10) {
+                    $cnBath = $cnNums[$cnBath - 1];
+                }
+
+                $list[] = $cnBadrooms.'室'.$cnBath.'卫 '.intval($this->no_bedrooms).'室'.($this->no_full_baths + $this->no_half_baths).'卫';
+
+                if (intval($this->garage_spaces) > 0) {
+                    $list[] = '带车库';
+                } elseif (intval($this->parking_spaces) > 0) {
+                    $list[] = '带车位';
+                }
             }
 
-            $list[] = $cnBadrooms.'室'.$cnBath.'卫 '.intval($this->no_bedrooms).'室'.($this->no_full_baths + $this->no_half_baths).'卫';
-
-            if (intval($this->garage_spaces) > 0) {
-                $list[] = '带车库';
-            } elseif (intval($this->parking_spaces) > 0) {
-                $list[] = '带车位';
-            }
             return implode(' ', $list);
         }
 
         $list[] = $cityName.' '.strtolower($propTypeName);
 
-        $bedroom = intval($this->no_bedrooms).' '.(intval($this->no_bedrooms) > 1 ? 'bedrooms' : 'bedroom');
-        $bath = $this->no_full_baths + $this->no_half_baths;
-        $bath = $bath.' '.($bath > 1 ? 'baths' : 'bath');
+        if ($this->prop_type !== 'LD') {
+            $bedroom = intval($this->no_bedrooms).' '.(intval($this->no_bedrooms) > 1 ? 'bedrooms' : 'bedroom');
+            $bath = $this->no_full_baths + $this->no_half_baths;
+            $bath = $bath.' '.($bath > 1 ? 'baths' : 'bath');
 
-        $list[] = $bedroom.' '.$bath;
+            $list[] = $bedroom.' '.$bath;
 
-        if (intval($this->garage_spaces) > 0) {
-            $list[] = 'has garage';
-        } elseif (intval($this->parking_spaces) > 0) {
-            $list[] = 'has parking';
+            if (intval($this->garage_spaces) > 0) {
+                $list[] = 'has garage';
+            } elseif (intval($this->parking_spaces) > 0) {
+                $list[] = 'has parking';
+            }
         }
         return implode(', ', $list);
     }
@@ -119,7 +133,8 @@ class Rets extends \models\MlsRets
         $status = $this->status;
 
         if($status === 'NEW') {
-            return \WS::$app->language === 'zh-CN' ? '新房源' : 'New';
+            $name = $this->prop_type === 'LD' ? '新的' : '新房源';
+            return \WS::$app->language === 'zh-CN' ? $name : 'New';
         }
 
         if (in_array($status, ['ACT', 'BOM', 'PCG', 'RAC', 'EXT'])) {

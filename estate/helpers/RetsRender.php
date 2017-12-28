@@ -104,7 +104,7 @@ class RetsRender
             $result['formatedValue'] = $result['prefix'].$result['formatedValue'];
         }
         if (isset($result['suffix'])) {
-            $result['formatedValue'] = $result['formatedValue'].$result['suffix'];
+            $result['formatedValue'] = $result['formatedValue'].' '.$result['suffix'];
         }
 
         return $result;
