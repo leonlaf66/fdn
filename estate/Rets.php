@@ -133,7 +133,7 @@ class Rets extends \models\MlsRets
         $status = $this->status;
 
         if($status === 'NEW') {
-            $name = $this->prop_type === 'LD' ? '新的' : '新房源';
+            $name = $this->prop_type === 'LD' ? '新出售' : '新房源';
             return \WS::$app->language === 'zh-CN' ? $name : 'New';
         }
 
