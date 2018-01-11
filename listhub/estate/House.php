@@ -157,10 +157,11 @@ class House extends \models\listhub\HouseIndex
 
     public function statusName()
     {
+        $tyNm = $this->prop_type === 'RN' ? '出租' : '销售';
         if ($this->ant_sold_date) {
-            return tt('Sold', '已销售');
+            return tt('Sold', '已'.$tyNm);
         }
-        return tt('Active', '销售中');
+        return tt('Active', $tyNm.'中');
     }
 
     public function getTagsCode()

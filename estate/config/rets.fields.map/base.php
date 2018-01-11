@@ -126,13 +126,13 @@ return [
     'status'=>[
         'title'=>'Status',
         'value'=>function($value, $rets) {
-            return \common\estate\helpers\Rets::toStatusName($value);
+            return \common\estate\helpers\Rets::toStatusName($value, $rets->prop_type);
         }
     ],
     'status_name'=>[
         'title'=>'Status',
         'value'=>function($value, $rets) {
-            return \common\estate\helpers\Rets::toStatusName($value);
+            return \common\estate\helpers\Rets::toStatusName($value, $rets->prop_type);
         }
     ],
     'basement'=>[

@@ -137,11 +137,12 @@ class Rets extends \models\MlsRets
             return \WS::$app->language === 'zh-CN' ? $name : 'New';
         }
 
+        $activeCnNm = $this->prop_type === 'RN' ? '出租' : '销售';
         if (in_array($status, ['ACT', 'BOM', 'PCG', 'RAC', 'EXT'])) {
-            return \WS::$app->language === 'zh-CN' ? '销售中' : 'Active';
+            return \WS::$app->language === 'zh-CN' ? $activeCnNm.'中' : 'Active';
         }
 
-        return \WS::$app->language === 'zh-CN' ? '已销售' : 'Sold';
+        return \WS::$app->language === 'zh-CN' ? '已'.$activeCnNm : 'Sold';
     }
 
     public function propTypeName()

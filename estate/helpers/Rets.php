@@ -36,13 +36,14 @@ class Rets
         return ArrayHelper::getValue($dicts[$dictConfigName], $value, $value);
     }
 
-    public static function toStatusName($status)
+    public static function toStatusName($status, $propType)
     {
+        $tyNm = $propType === 'RN' ? '出租' : '销售';
         if($status === 'SLD') {
-            return \WS::$app->language === 'zh-CN' ? '已销售' : 'Sold';
+            return \WS::$app->language === 'zh-CN' ? '已'.$tyNm : 'Sold';
         }
         if(\WS::$app->language === 'zh-CN') {
-            return $status == 'NEW' ? '新房源' : '销售中';
+            return $status == 'NEW' ? '新房源' : $tyNm.'中';
         }
         return $status == 'NEW' ? 'New' : 'Active';
     }
