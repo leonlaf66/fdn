@@ -35,7 +35,14 @@ class House extends \models\listhub\HouseIndex
         if (\WS::$app->language === 'zh-CN') {
             $list[] = $cityName.$propTypeName;
             if (!$this->isLand()) {
-                $list[] = intval($this->no_bedrooms).'室'.($this->no_bathrooms).'卫';
+                $subList = [];
+                if (intval($this->no_bedrooms) > 0) {
+                    $subList[] = $this->no_bedrooms.'室';
+                }
+                if (intval($this->no_bathrooms) > 0) {
+                    $subList[] = $this->no_bathrooms.'卫';
+                }
+                $list[] = implode('', $subList);
                 if (intval($this->parking_spaces) > 0) {
                     $list[] = '带车位';
                 }
@@ -46,7 +53,14 @@ class House extends \models\listhub\HouseIndex
 
         $list[] = $cityName.' '.strtolower($propTypeName);
         if (!$this->isLand()) {
-            $list[] = intval($this->no_bedrooms) . ' bed ' . $this->no_bathrooms . ' bath';
+            $subList = [];
+            if (intval($this->no_bedrooms) > 0) {
+                $subList[] = intval($this->no_bedrooms) . ' bed ';
+            }
+            if (intval($this->no_bathrooms) > 0) {
+                $subList[] = intval($this->no_bathrooms) . ' bath ';
+            }
+            $list[] = implode(' ', $subList);
         }
 
         return implode(', ', $list);
@@ -375,7 +389,7 @@ class House extends \models\listhub\HouseIndex
     public function recommends($stateId, $limit = 8)
     {
         $stateId = strtoupper($stateId);
-        
+
         $cityId = $this->city_id;
         $price = $this->list_price;
         $propTypeId = $this->prop_type; //SF/CC归为一类
