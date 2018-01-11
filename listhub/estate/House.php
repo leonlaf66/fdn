@@ -374,6 +374,8 @@ class House extends \models\listhub\HouseIndex
 
     public function recommends($stateId, $limit = 8)
     {
+        $stateId = strtoupper($stateId);
+        
         $cityId = $this->city_id;
         $price = $this->list_price;
         $propTypeId = $this->prop_type; //SF/CC归为一类
