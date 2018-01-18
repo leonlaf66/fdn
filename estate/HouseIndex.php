@@ -46,7 +46,7 @@ class HouseIndex extends \models\HouseIndex
         } else {
             $query->andWhere(['prop_type'=>$propTypeId]);
         }
-        $query->andWhere('is_show', true);
+        $query->andWhere(['is_show' => true]);
         $query->andWhere(['<>', 'id', $this->id]);
         $query->limit($limit);
 
