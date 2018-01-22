@@ -16,7 +16,7 @@ return [
         'private' => true
     ],
     /*news*/
-    /*'news.banner.top' => [
+    'news.banner.top' => [
         'type' => 'NewsBannerTop',
         'default' => [],
         'private' => true
@@ -25,5 +25,5 @@ return [
         'type' => 'AppNewsBanner',
         'default' => [],
         'private' => true
-    ]*/
+    ]
 ];
