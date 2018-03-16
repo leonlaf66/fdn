@@ -151,6 +151,22 @@ class Rets extends \models\MlsRets
         return $types[$this->prop_type] ?? '未知';
     }
 
+    public function getEstPrice()
+    {
+        if (!$this->est_sale) {
+            return tt('Unknown', '未提供');
+        }
+
+        if (\WS::$app->language === 'zh-CN') {
+            if (floatval($this->list_price) > 10000) {
+                return number_format($this->est_sale / 10000.0, 2).'万美元';
+            } else {
+                return number_format($this->est_sale, 2).'美元';
+            }
+        }
+        return '$'.number_format($this->est_sale, 0);
+    }
+
     public function getListDaysDescription()
     {
         $days = intval((time() - strtotime($this->list_date)) / 86400);
