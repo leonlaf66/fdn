@@ -153,7 +153,7 @@ class Rets extends \models\MlsRets
 
     public function getEstPrice()
     {
-        if (floatval($this->est_sale) === -1) {
+        if (intval($this->est_sale) === -1) {
             $this->est_sale = null;
         }
 
@@ -162,7 +162,7 @@ class Rets extends \models\MlsRets
         }
 
         if (\WS::$app->language === 'zh-CN') {
-            if (floatval($this->list_price) > 10000) {
+            if (floatval($this->est_sale) > 10000) {
                 return number_format($this->est_sale / 10000.0, 2).'万美元';
             } else {
                 return number_format($this->est_sale, 2).'美元';
