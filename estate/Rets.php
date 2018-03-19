@@ -158,8 +158,7 @@ class Rets extends \models\MlsRets
 
     public function getEstPrice()
     {
-        $estimation = $this->getEstimation();
-        $estSale = $estimation->est_sale;
+        $estSale = $this->est_sale;
 
         if (intval($estSale) === -1) {
             $estSale = null;
