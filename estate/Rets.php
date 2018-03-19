@@ -153,6 +153,10 @@ class Rets extends \models\MlsRets
 
     public function getEstPrice()
     {
+        if (floatval($this->est_sale) === -1) {
+            $this->est_sale = null;
+        }
+
         if (!$this->est_sale) {
             return tt('Unknown', '未提供');
         }
