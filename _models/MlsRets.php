@@ -6,6 +6,7 @@ use WS;
 class MlsRets extends ActiveRecord
 {
     public $json = [];
+    public $jsonFields = ['estimation'];
 
     public static function tableName()
     {

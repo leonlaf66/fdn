@@ -151,24 +151,32 @@ class Rets extends \models\MlsRets
         return $types[$this->prop_type] ?? '未知';
     }
 
+    public function getEstimation()
+    {
+        return $this->estimation;
+    }
+
     public function getEstPrice()
     {
-        if (intval($this->est_sale) === -1) {
-            $this->est_sale = null;
+        $estimation = $this->getEstimation();
+        $estSale = $estimation->est_sale;
+
+        if (intval($estSale) === -1) {
+            $estSale = null;
         }
 
-        if (!$this->est_sale) {
+        if (!$estSale) {
             return tt('Unknown', '未提供');
         }
 
         if (\WS::$app->language === 'zh-CN') {
-            if (floatval($this->est_sale) > 10000) {
-                return number_format($this->est_sale / 10000.0, 2).'万美元';
+            if (floatval($estSale) > 10000) {
+                return number_format($estSale / 10000.0, 2).'万美元';
             } else {
-                return number_format($this->est_sale, 2).'美元';
+                return number_format($estSale, 2).'美元';
             }
         }
-        return '$'.number_format($this->est_sale, 0);
+        return '$'.number_format($estSale, 0);
     }
 
     public function getListDaysDescription()
