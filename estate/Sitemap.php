@@ -6,13 +6,13 @@ use common\helper\DbQuery;
 
 class Sitemap
 {
-    public static function map($callable, $limit = 4000)
+    public static function map($areaId, $callable, $limit = 4000)
     {
         $query = (new \yii\db\Query())
-            ->select('id, is_rental, index_at')
-            ->from('house_index')
-            ->where(['state' => 'MA'])
-            ->andWhere('is_show=true')
+            ->select('list_no, prop_type, index_at')
+            ->from('house_index_v2')
+            ->where(['area_id' => $areaId])
+            ->andWhere('is_online_abled=true')
             ->orderBy(['index_at' => 'DESC'])
             ->limit($limit);
 
