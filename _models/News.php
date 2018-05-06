@@ -20,9 +20,29 @@ class News extends ActiveRecord
 
         if (preg_match('/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i', $content, $matchs)) {
             $imageUrl = $matchs[1];
+            // $imageUrl = media_url('news/img/'.$imageUrl);
         }
 
         return $imageUrl;
+    }
+
+    public function afterFind()
+    {
+        if ($content = $this->content) {
+            // 替换内容中的图片
+            if (preg_match_all('/<img.*?src="(.*?)".*?>/is', $content, $matchs)) {
+                foreach ($matchs[1] as $imageUrl) {
+                    if (substr($imageUrl, 0, 2) === '//') {
+                        $imageUrl = substr($imageUrl, 2);
+
+                        $newImageUrl = media_url('news/img/'.$imageUrl);
+                        $content = str_replace('//'.$imageUrl, $newImageUrl, $content);
+                    }
+                }
+            }
+            $this->content = $content;
+        }
+        return parent::afterFind();
     }
 
     public function afterSave($insert, $changedAttributes)

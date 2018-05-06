@@ -88,6 +88,15 @@ function media_url($name = null)
     return \WS::$app->params['media']['baseUrl'].'/'.$name;
 }
 
+function static_url($name)
+{
+    $name = trim($name);
+    if (substr($name, 0, 1) === '/') {
+        $name = substr($name, 1);
+    }
+    return \WS::$app->params['cdn']['baseUrl'].'/'.$name;
+}
+
 function media_file($name = null)
 {
     if (! $name) {
