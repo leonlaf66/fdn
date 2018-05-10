@@ -20,7 +20,8 @@ class News extends ActiveRecord
 
         if (preg_match('/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i', $content, $matchs)) {
             $imageUrl = $matchs[1];
-            if (strpos($imageUrl, 'http://media.usleju.') !== false) {
+            $mediaBaseUrl = \WS::$app->params['media']['baseUrl'];
+            if (strpos($imageUrl, $mediaBaseUrl) !== false) {
                 $imageUrl = $imageUrl .= "?imageMogr2/thumbnail/{$w}x{$h}";
             }
         }
