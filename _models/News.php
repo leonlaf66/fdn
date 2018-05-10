@@ -12,7 +12,7 @@ class News extends ActiveRecord
         return 'news';
     }
 
-    public function getImageUrl($defaultImageFile = '')
+    public function getImageUrl($defaultImageFile = '', $w = '250', $h = '156')
     {
         $content = $this->content;
 
@@ -20,7 +20,9 @@ class News extends ActiveRecord
 
         if (preg_match('/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i', $content, $matchs)) {
             $imageUrl = $matchs[1];
-            // $imageUrl = media_url('news/img/'.$imageUrl);
+            if (strpos($imageUrl, 'http://media.usleju.') !== false) {
+                $imageUrl = $imageUrl .= "?imageMogr2/thumbnail/{$w}x{$h}";
+            }
         }
 
         return $imageUrl;
@@ -49,7 +51,7 @@ class News extends ActiveRecord
     {
         if ($this->status == 1) {
             \WS::$app->shellMessage->send('news-process/index '.$this->id);
-            // $this->processImages();
+            $this->processImages();
         }
         return parent::afterSave($insert, $changedAttributes);
     }

@@ -94,7 +94,7 @@ function static_url($name)
     if (substr($name, 0, 1) === '/') {
         $name = substr($name, 1);
     }
-    return \WS::$app->params['cdn']['baseUrl'].'/'.$name;
+    return \WS::$app->params['static']['baseUrl'].'/'.$name;
 }
 
 function media_file($name = null)
