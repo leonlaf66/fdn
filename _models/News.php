@@ -51,7 +51,7 @@ class News extends ActiveRecord
     {
         if ($this->status == 1) {
             \WS::$app->shellMessage->send('news-process/index '.$this->id);
-            $this->processImages();
+            // $this->processImages();
         }
         return parent::afterSave($insert, $changedAttributes);
     }
