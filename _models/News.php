@@ -37,7 +37,7 @@ class News extends ActiveRecord
                     if (substr($imageUrl, 0, 2) === '//') {
                         $imageUrl = substr($imageUrl, 2);
 
-                        $newImageUrl = media_url('news/img/'.$imageUrl);
+                        $newImageUrl = media_url($imageUrl);
                         $content = str_replace('//'.$imageUrl, $newImageUrl, $content);
                     }
                 }
