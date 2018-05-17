@@ -10,9 +10,9 @@ class SiteSeoMeta extends ActiveRecord
         return 'site_seo_meta';
     }
 
-    public static function findOneAsArray($path)
+    public static function findOneAsArray($area, $path)
     {
-        $m = parent::findOne($path);
+        $m = parent::find()->where(['area_id' => $area, 'path' => $path])->one();
         if (! $m) {
             return [
                 'title' => ['', ''],
