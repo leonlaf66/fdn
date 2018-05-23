@@ -43,7 +43,7 @@ class Account extends \models\Member implements \yii\web\IdentityInterface
 
     public static function findByOpenId($openId)
     {
-        return static::findOne(['open_id' => $openId]);
+        return static::findOne(['open_id' => $openId, 'flags' => 0]);
     }
 
     /**
