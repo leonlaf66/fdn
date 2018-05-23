@@ -58,12 +58,6 @@ class WXAdv
     //获取用户基本信息
     public function get_user_info($openid)
     {
-        return [ // test
-            'open_id' => $openid,
-            'nickname' => '李春华',
-            'country' => '中国'
-        ];
-
         $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$this->access_token."&openid=".$openid."&lang=zh_CN";
         $res = $this->https_request($url);
         return json_decode($res, true);
