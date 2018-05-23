@@ -43,8 +43,6 @@ class WXAdv
     //根据code获取openId
     public function get_open_id($code)
     {
-        return md5($code); //test
-
         $authorization = $this->auth($code);
         return $authorization['openid'];
     }
