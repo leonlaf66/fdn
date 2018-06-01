@@ -3,11 +3,11 @@ namespace models;
 
 class SiteSeoMeta extends ActiveRecord
 {
-    public $arrayFields = ['title', 'keywords', 'description'];
+    public $arrayFields = ['title'];
 
     public static function tableName()
     {
-        return 'site_seo_meta';
+        return 'site_seo_meta_cn';
     }
 
     public static function findOneAsArray($area, $path)
@@ -16,8 +16,8 @@ class SiteSeoMeta extends ActiveRecord
         if (! $m) {
             return [
                 'title' => ['', ''],
-                'keywords' => ['', ''],
-                'description' => ['', '']
+                'keywords' => '',
+                'description' => ''
             ];
         }
 
