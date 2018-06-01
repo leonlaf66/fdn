@@ -13,8 +13,7 @@ class Sitemap
             ->from('house_index_v2')
             ->where(['area_id' => $areaId])
             ->andWhere('is_online_abled=true')
-            ->orderBy(['index_at' => 'DESC'])
-            ->limit($limit);
+            ->orderBy(['index_at' => 'DESC']);
 
         $grountIndex = 0;
         DbQuery::patch($query, $limit, function ($query, $totalCount, $that) use ($callable, & $grountIndex) {
