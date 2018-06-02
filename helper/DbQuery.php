@@ -17,7 +17,7 @@ class DbQuery
             $theQuery = clone $query;
 
             $theQuery->offset(($group - 1) * $size);
-            $calback($theQuery, ['total' => $count, 'params'=>$params, 'groupCount' => $groups, 'groupIdx' => $group]);
+            $calback($theQuery, $count, $params);
 
             unset($theQuery);
         }

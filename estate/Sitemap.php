@@ -6,7 +6,7 @@ use common\helper\DbQuery;
 
 class Sitemap
 {
-    public static function map($areaId, $callable, $limit = 4000, $params = [])
+    public static function map($areaId, $callable, $limit = 4000)
     {
         $query = (new \yii\db\Query())
             ->select('list_no, prop_type, index_at')
@@ -18,9 +18,11 @@ class Sitemap
             ->orderBy(['index_at' => 'DESC'])
             ->limit($limit);
 
-        DbQuery::patch($query, $limit, function ($query, $opts) use ($callable) {
+        $grountIdx  = 0;
+        DbQuery::patch($query, $limit, function ($query, $totalCount, $params) use ($callable, & $grountIdx) {
             $rows = $query->all();
-            $callable($rows, $opts);
-        }, $params);
+            $callable($rows, $grountIdx);
+            $grountIdx ++;
+        });
     }
 }
