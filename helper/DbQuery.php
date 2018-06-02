@@ -5,10 +5,7 @@ class DbQuery
 {
     public static function patch($query, $size, $calback, $params = null, & $db = null)
     {
-        static $count = null;
-        if (is_null($count)) {
-            $count = $query->count('*', $db);
-        }
+        $count = $query->count('*', $db);
         
         $groups = round($count * 1.0 / $size);
 
@@ -20,7 +17,7 @@ class DbQuery
             $theQuery = clone $query;
 
             $theQuery->offset(($group - 1) * $size);
-            $calback($theQuery, $count, $params);
+            $calback($theQuery, ['total' => $count, 'params'=>$params, 'groupCount' => $groups, 'groupIdx' => $group]);
 
             unset($theQuery);
         }
