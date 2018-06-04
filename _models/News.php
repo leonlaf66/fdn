@@ -51,8 +51,9 @@ class News extends ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         if ($this->status == 1) {
-            \WS::$app->shellMessage->send('news-process/index '.$this->id);
-            // $this->processImages();
+            if (!strpos($_SERVER['HTTP_HOST'], '.usleju.local')) {
+                \WS::$app->shellMessage->send('news-process/index '.$this->id);
+            }
         }
         return parent::afterSave($insert, $changedAttributes);
     }
