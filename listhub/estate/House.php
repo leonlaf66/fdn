@@ -394,6 +394,10 @@ class House extends \models\listhub\HouseIndex
         $price = $this->list_price;
         $propTypeId = $this->prop_type; //SF/CC归为一类
 
+        if (!$price || !$propTypeId) {
+            return [];
+        }
+
         $query = static::find()
             ->addSelect(['*', "abs(list_price - {$price}) as diff_price"])
             ->where(['state' => $stateId])
