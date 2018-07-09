@@ -11,7 +11,7 @@ class Sitemap
         $query = (new \yii\db\Query())
             ->select('id, updated_at')
             ->from('news')
-            ->where(['@>', 'area_id', '{'.strtolower($areaId).'}')
+            ->where(['@>', 'area_id', '{'.strtolower($areaId).'}'])
             ->andWhere('status=1')
             ->orderBy(['updated_at' => 'DESC']);
 

@@ -11,7 +11,7 @@ class Sitemap
         $query = (new \yii\db\Query())
             ->select('id')
             ->from('yellow_page')
-            ->where('area_id', strtolower($areaId))
+            ->where(['area_id' => strtolower($areaId)])
             ->orderBy(['id' => 'DESC']);
 
         return $query->all();
