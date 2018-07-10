@@ -25,5 +25,9 @@ return [
         'type' => 'AppNewsBanner',
         'default' => [],
         'private' => true
+    ],
+    /*seo*/
+    'friended.links' => [
+        'type' => 'textarea'
     ]
 ];
