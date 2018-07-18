@@ -10,7 +10,7 @@ return [
         ]
     ],
     'params' => [
-        'iconfontUrl' => '//at.alicdn.com/t/font_318117_ymshtjgyi7ldi.css',
+        'iconfontUrl' => '//at.alicdn.com/t/font_318117_dc83cwo65e.css',
         'webApp' => [
             'baseUrl' => ''
         ],
