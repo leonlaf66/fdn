@@ -2,8 +2,19 @@
 return \yii\helpers\ArrayHelper::merge([
     'id' => 'usleju',
     'language' => 'en-US',
+    'bootstrap' => ['log'],
     'configuationData' => include(__DIR__.'/system.php'),
     'components' => [
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+              [
+                'class' => 'yii\log\FileTarget',
+                'levels' => ['error', 'warning', 'info'],
+                'categories' => ['dev']
+              ]
+            ]
+        ],
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'pgsql:host=;dbname=usleju',
