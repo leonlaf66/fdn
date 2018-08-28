@@ -1,4 +1,12 @@
 <?php
+function app($com = null) {
+    $app = \WS::$app;
+    if ($com) {
+        return $app->$com;
+    }
+    return $app;
+}
+
 function helper($name, $score = 'yii')
 {
     if ($score === 'yii') {
